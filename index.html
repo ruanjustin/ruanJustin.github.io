@@ -93,12 +93,12 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>在用户提交该表单时，我们还要做两件事：<br>1.（通过 PHP trim() 函数）去除用户输入数据中不必要的字符（多余的空格、制表符、换行）<br>2.（通过 PHP stripslashes() 函数）删除用户输入数据中的反斜杠（\）<br>3.（通过PHP htmlspeacialchars（）函数）保证安全性<br>preg_match：检索字符串<br>如需在用户点击提交按钮后在输入字段中显示值，我们在以下输入字段的 value 属性中增加了一小段 PHP 脚本：name、email 以及 website。在 comment 文本框字段中，我们把脚本放到了 “<textarea> 与 </textarea>” 之间。这些脚本输出 $name、$email、$website 和 $comment 变量的值。<br>然后，我们还需要显示选中了哪个单选按钮。对此，我们必须操作 checked 属性（而非单选按钮的 value 属性）：<br>Name: <input type="text" name="name" value="<?php echo $name;?>"><br>Gender:<br>&lt;input type&#x3D;”radio” name&#x3D;”gender”<br><?php if (isset($gender) && $gender=="female") echo "checked";?><br>value&#x3D;”female”&gt;Female<br>&lt;input type&#x3D;”radio” name&#x3D;”gender”<br><?php if (isset($gender) && $gender=="male") echo "checked";?><br>value&#x3D;”male”&gt;Male</p>
+        <p>在用户提交该表单时，我们还要做两件事：<br>1.（通过 PHP trim() 函数）去除用户输入数据中不必要的字符（多余的空格、制表符、换行）<br>2.（通过 PHP stripslashes() 函数）删除用户输入数据中的反斜杠（\）<br>3.（通过PHP htmlspeacialchars（）函数）保证安全性<br>preg_match：检索字符串<br>如需在用户点击提交按钮后在输入字段中显示值，我们在以下输入字段的 value 属性中增加了一小段 PHP 脚本：name、email 以及 website。在 comment 文本框字段中，我们把脚本放到了 <code>&lt;textarea&gt; 与 &lt;/textarea&gt;</code> 之间。这些脚本输出 $name、$email、$website 和 $comment 变量的值。<br>然后，我们还需要显示选中了哪个单选按钮。对此，我们必须操作 checked 属性（而非单选按钮的 value 属性）：<br>Name: <input type="text" name="name" value="<?php echo $name;?>"><br>Gender:<br>&lt;input type&#x3D;”radio” name&#x3D;”gender”<br><?php if (isset($gender) && $gender=="female") echo "checked";?><br>value&#x3D;”female”&gt;Female<br>&lt;input type&#x3D;”radio” name&#x3D;”gender”<br><?php if (isset($gender) && $gender=="male") echo "checked";?><br>value&#x3D;”male”&gt;Male</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/28/%E8%A1%A8%E5%8D%95/" data-id="cl9sa7gpq0003d8oz05z971ma" data-title="表单" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/10/28/%E8%A1%A8%E5%8D%95/" data-id="cl9safw1a0003rsoze5aedkx1" data-title="表单" class="article-share-link">Share</a>
       
       
       
@@ -137,7 +137,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/27/My-New-Post-1/" data-id="cl9sa7gph0000d8oz6zbpdn16" data-title="超全局变量" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/10/27/My-New-Post-1/" data-id="cl9safw110000rsozckkwhy2f" data-title="超全局变量" class="article-share-link">Share</a>
       
       
       
@@ -176,7 +176,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/09/21/My-New-Post/" data-id="cl9sa7gpl0001d8oz48ln02y1" data-title="My New Post" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/09/21/My-New-Post/" data-id="cl9safw150001rsozhlkt7mpq" data-title="My New Post" class="article-share-link">Share</a>
       
       
       
@@ -227,7 +227,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/09/21/hello-world/" data-id="cl9sa7gpm0002d8oz0o9nbnx8" data-title="Hello World" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/09/21/hello-world/" data-id="cl9safw170002rsozcjd81310" data-title="Hello World" class="article-share-link">Share</a>
       
       
       
