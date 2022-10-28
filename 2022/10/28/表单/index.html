@@ -14,7 +14,7 @@
 <meta property="og:description" content="在用户提交该表单时，我们还要做两件事：1.（通过 PHP trim() 函数）去除用户输入数据中不必要的字符（多余的空格、制表符、换行）2.（通过 PHP stripslashes() 函数）删除用户输入数据中的反斜杠（\）3.（通过PHP htmlspeacialchars（）函数）保证安全性preg_match：检索字符串如需在用户点击提交按钮后在输入字段中显示值，我们在以下输入字段的 val">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-10-28T04:27:31.000Z">
-<meta property="article:modified_time" content="2022-10-28T09:28:01.942Z">
+<meta property="article:modified_time" content="2022-10-28T09:29:37.966Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -95,12 +95,12 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>在用户提交该表单时，我们还要做两件事：<br>1.（通过 PHP trim() 函数）去除用户输入数据中不必要的字符（多余的空格、制表符、换行）<br>2.（通过 PHP stripslashes() 函数）删除用户输入数据中的反斜杠（\）<br>3.（通过PHP htmlspeacialchars（）函数）保证安全性<br>preg_match：检索字符串<br>如需在用户点击提交按钮后在输入字段中显示值，我们在以下输入字段的 value 属性中增加了一小段 PHP 脚本：name、email 以及 website。在 comment 文本框字段中，我们把脚本放到了 <code>&lt;textarea&gt; 与 &lt;/textarea&gt;</code> 之间。这些脚本输出 $name、$email、$website 和 $comment 变量的值。<br>然后，我们还需要显示选中了哪个单选按钮。对此，我们必须操作 checked 属性（而非单选按钮的 value 属性）：<br>Name: <code>&lt;input type=&quot;text&quot; name=&quot;name&quot; value=&quot;&lt;?php echo $name;?&gt;&quot;&gt;</code><br>Gender:<br>&lt;input type&#x3D;<code>&quot;radio&quot; name=&quot;gender&quot;</code><br><code>&lt;?php if (isset($gender) &amp;&amp; $gender==&quot;female&quot;) echo &quot;checked&quot;;?&gt;</code><br>value&#x3D;<code>&quot;female&quot;&gt;Female</code><br><code>&lt;input type=&quot;radio&quot; name=&quot;gender&quot; &lt;?php if (isset($gender) &amp;&amp; $gender==&quot;male&quot;) echo &quot;checked&quot;;?&gt; value=&quot;male&quot;&gt;Male</code></p>
+        <p>在用户提交该表单时，我们还要做两件事：<br>1.（通过 PHP trim() 函数）去除用户输入数据中不必要的字符（多余的空格、制表符、换行）<br>2.（通过 PHP stripslashes() 函数）删除用户输入数据中的反斜杠（\）<br>3.（通过PHP htmlspeacialchars（）函数）保证安全性<br>preg_match：检索字符串<br>如需在用户点击提交按钮后在输入字段中显示值，我们在以下输入字段的 value 属性中增加了一小段 PHP 脚本：name、email 以及 website。在 comment 文本框字段中，我们把脚本放到了 <code>&lt;textarea&gt; 与 &lt;/textarea&gt;</code> 之间。这些脚本输出 $name、$email、$website 和 $comment 变量的值。<br>然后，我们还需要显示选中了哪个单选按钮。对此，我们必须操作 checked 属性（而非单选按钮的 value 属性）：<br>Name: <code>&lt;input type=&quot;text&quot; name=&quot;name&quot; value=&quot;&lt;?php echo $name;?&gt;&quot;&gt;</code><br>Gender:<br><code>&lt;input type=</code>“radio” name&#x3D;”gender”<code> </code><?php if (isset($gender) && $gender=="female") echo "checked";?><code> value=</code>“female”&gt;Female<code> </code>&lt;input type&#x3D;”radio” name&#x3D;”gender”<code> </code><?php if (isset($gender) && $gender=="male") echo "checked";?><code> </code>value&#x3D;”male”&gt;Male&#96;</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/28/%E8%A1%A8%E5%8D%95/" data-id="cl9sakm890003b8oz1xa9d5i5" data-title="表单" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/10/28/%E8%A1%A8%E5%8D%95/" data-id="cl9samklb0003agoz0kdfcvql" data-title="表单" class="article-share-link">Share</a>
       
       
       
