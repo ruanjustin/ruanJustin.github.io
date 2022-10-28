@@ -71,6 +71,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-表单" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/28/%E8%A1%A8%E5%8D%95/" class="article-date">
+  <time class="dt-published" datetime="2022-10-28T04:27:31.000Z" itemprop="datePublished">2022-10-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/28/%E8%A1%A8%E5%8D%95/">表单</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在用户提交该表单时，我们还要做两件事：<br>1.（通过 PHP trim() 函数）去除用户输入数据中不必要的字符（多余的空格、制表符、换行）<br>2.（通过 PHP stripslashes() 函数）删除用户输入数据中的反斜杠（\）<br>3.（通过PHP htmlspeacialchars（）函数）保证安全性</p>
+<p>preg_match：检索字符串</p>
+<p>如需在用户点击提交按钮后在输入字段中显示值，我们在以下输入字段的 value 属性中增加了一小段 PHP 脚本：name、email 以及 website。在 comment 文本框字段中，我们把脚本放到了 <textarea> 与 </textarea> 之间。这些脚本输出 $name、$email、$website 和 $comment 变量的值。<br>然后，我们还需要显示选中了哪个单选按钮。对此，我们必须操作 checked 属性（而非单选按钮的 value 属性）：<br>Name: <input type="text" name="name" value="<?php echo $name;?>"><br>Gender:<br>&lt;input type&#x3D;”radio” name&#x3D;”gender”<br><?php if (isset($gender) && $gender=="female") echo "checked";?><br>value&#x3D;”female”&gt;Female<br>&lt;input type&#x3D;”radio” name&#x3D;”gender”<br><?php if (isset($gender) && $gender=="male") echo "checked";?><br>value&#x3D;”male”&gt;Male</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/28/%E8%A1%A8%E5%8D%95/" data-id="cl9s8vpf60003vkoz68ks8rk9" data-title="表单" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-My-New-Post-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/10/27/My-New-Post-1/" class="article-date">
@@ -98,7 +139,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/27/My-New-Post-1/" data-id="cl9rzqn3c0000fgoz8b3agy1f" data-title="超全局变量" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/10/27/My-New-Post-1/" data-id="cl9s8vpex0000vkozgs1d4s3f" data-title="超全局变量" class="article-share-link">Share</a>
       
       
       
@@ -137,7 +178,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/09/21/My-New-Post/" data-id="cl9rzqn3g0001fgoz1rpn3tj1" data-title="My New Post" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/09/21/My-New-Post/" data-id="cl9s8vpf10001vkoz6v820ai6" data-title="My New Post" class="article-share-link">Share</a>
       
       
       
@@ -188,7 +229,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/09/21/hello-world/" data-id="cl9rzqn3m0002fgozb52r1wns" data-title="Hello World" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/09/21/hello-world/" data-id="cl9s8vpf30002vkoz55xo8xr9" data-title="Hello World" class="article-share-link">Share</a>
       
       
       
@@ -229,6 +270,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2022/10/28/%E8%A1%A8%E5%8D%95/">表单</a>
+          </li>
         
           <li>
             <a href="/2022/10/27/My-New-Post-1/">超全局变量</a>
