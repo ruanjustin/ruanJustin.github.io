@@ -94,12 +94,13 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h1 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h1><p>date() 函数：获得日期<br>mktime() 函数：创建日期<br>语法：mktime(hour,minute,second,month,day,year)<br>strtotime() 用字符串来创建日期<br>实例：<br><code>&lt;?php $d=strtotime(&quot;10:38pm April 15 2015&quot;); echo &quot;创建日期是 &quot; . date(&quot;Y-m-d h:i:sa&quot;, $d); ?&gt;</code></p>
-<h1 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h1><p>文件插入： include 和 require 语句<br>区别：require 会生成致命错误（E_COMPILE_ERROR）并停止脚本<br>&amp;nbsp;include 只生成警告（E_WARNING），并且脚本会继续<br>直接文件读取：readfile() 函数<br>文件打开：<br>fopen() 函数（有更多选项：fopen(“webdictionary.txt”, “r”) or die(“Unable to open file!”)）<br>fread() 函数读取打开的文件；fclose() 函数用于关闭打开的文件<br>fgets() 函数用于从文件读取单行；fgetc() 函数用于从文件中读取单个字符<br>feof() 函数检查是否已到达 “end-of-file” (EOF)：<br>while(!feof($myfile)) {<br>  echo fgets($myfile) . “<br>“;<br>}</p>
+<h1 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h1><p>文件插入： include 和 require 语句<br>区别：require 会生成致命错误（E_COMPILE_ERROR）并停止脚本<br>include 只生成警告（E_WARNING），并且脚本会继续<br>直接文件读取：readfile() 函数<br>文件打开：<br>fopen() 函数（有更多选项：fopen(“webdictionary.txt”, “r”) or die(“Unable to open file!”)）<br>fread() 函数读取打开的文件；fclose() 函数用于关闭打开的文件<br>fgets() 函数用于从文件读取单行；fgetc() 函数用于从文件中读取单个字符<br>feof() 函数检查是否已到达 “end-of-file” (EOF)：<br>while(!feof($myfile)) {<br>  echo fgets($myfile) . “<br>“;<br>}<br>文件创建：<br>fopen() 函数（当打开的文件不存在时创建）<br>fwrite() 函数用于写入文件，如果文件中已有内容则会进行覆盖</p>
+<h1 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h1><p>cookie 常用于识别用户，cookie 是服务器留在用户计算机中的小文件。每当相同的计算机通过浏览器请求页面时，它同时会发送 cookie。通过 PHP，能够创建并取回 cookie 的值。<br>setcookie() 函数用于设置 cookie，会自动进行 URL 编码，在取回时进行自动解码（为防止 URL 编码，使用 setrawcookie() 取而代之）<br> $_COOKIE 变量用于取回 cookie 的值<br>isset() 函数来确认是否已设置了 cookie</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/29/%E9%AB%98%E7%BA%A7%E6%95%99%E7%A8%8B/" data-id="cl9tnqoz20004xkoz1sgl0koe" data-title="高级教程" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/10/29/%E9%AB%98%E7%BA%A7%E6%95%99%E7%A8%8B/" data-id="cl9tpfejg0004tkoz10pm758w" data-title="高级教程" class="article-share-link">Share</a>
       
       
       
@@ -138,7 +139,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/28/%E8%A1%A8%E5%8D%95/" data-id="cl9tnqoyx0003xkoz5vv4bjwp" data-title="表单" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/10/28/%E8%A1%A8%E5%8D%95/" data-id="cl9tpfejb0003tkozfv1tffc3" data-title="表单" class="article-share-link">Share</a>
       
       
       
@@ -172,12 +173,12 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>超全局变量：$GLOBALS：引用全局作用域中可用的全部变量<br>                    $_SERVER：保存关于报头、路径和脚本位置的信息<br>                               $_SEVER[“PHP_SELF]：返回当前执行脚本的文件名（将表单数据发送到页面本身），易被添加JaveScript代码，应使用htmlspecilchars()函数避免，<br>        $_REQUEST：用于收集HTML表单提交的数据（input）<br>        $_POST：广泛收集method&#x3D;”post”的HTML表单后的表单数据<br>                 传递变量<br>        $_GET：广泛收集method&#x3D;”get”的HTML表单后的表单数据<br>              收集URL中的发送的数据<br>    $_POST和$_GET的区别：<br>      1.前者通过HTTP POST参数传递到当前脚本的变量数组而后者通过URL<br>      2.前者变量未显示在URL中，对其他人不可见。后者会显示在URL中，对任何人都是可见的<br>        $_FILES<br>        $_ENV<br>        $_COOKIE<br>        $_SESSION</p>
+        <p>超全局变量：$GLOBALS：引用全局作用域中可用的全部变量<br>                    $_SERVER：保存关于报头、路径和脚本位置的信息<br>                               $_SEVER[“PHP_SELF]：返回当前执行脚本的文件名（将表单数据发送到页面本身），易被添加JaveScript代码，应使用htmlspecilchars()函数避免，<br>        $_REQUEST：用于收集HTML表单提交的数据（input）<br>        $_POST：广泛收集method&#x3D;”post”的HTML表单后的表单数据<br>                 传递变量<br>        $_GET：广泛收集method&#x3D;”get”的HTML表单后的表单数据<br>              收集URL中的发送的数据<br>    $_POST和$_GET的区别：<br>      1.前者通过HTTP POST参数传递到当前脚本的变量数组而后者通过URL<br>      2.前者变量未显示在URL中，对其他人不可见。后者会显示在URL中，对任何人都是可见的<br>        $_FILES<br>        $_ENV<br>        $_COOKIE：取回cookie值<br>        $_SESSION</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/27/My-New-Post-1/" data-id="cl9tnqoyr0000xkozgoxu5rlu" data-title="超全局变量" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/10/27/My-New-Post-1/" data-id="cl9tpfej50000tkoz5t648n9n" data-title="超全局变量" class="article-share-link">Share</a>
       
       
       
@@ -216,7 +217,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/09/21/My-New-Post/" data-id="cl9tnqoyv0001xkoz0bk6hn0e" data-title="My New Post" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/09/21/My-New-Post/" data-id="cl9tpfej80001tkoz03i7ga6l" data-title="My New Post" class="article-share-link">Share</a>
       
       
       
@@ -267,7 +268,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/09/21/hello-world/" data-id="cl9tnqoyw0002xkoz4dobfern" data-title="Hello World" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/09/21/hello-world/" data-id="cl9tpfeja0002tkoz1rx0979b" data-title="Hello World" class="article-share-link">Share</a>
       
       
       
