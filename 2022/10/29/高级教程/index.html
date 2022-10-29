@@ -14,7 +14,7 @@
 <meta property="og:description" content="日期date() 函数：获得日期mktime() 函数：创建日期语法：mktime(hour,minute,second,month,day,year)strtotime() 用字符串来创建日期实例：&lt;?php $d&#x3D;strtotime(&quot;10:38pm April 15 2015&quot;); echo &quot;创建日期是 &quot; . date(&quot;Y-m-d">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-10-29T05:40:20.000Z">
-<meta property="article:modified_time" content="2022-10-29T09:11:35.492Z">
+<meta property="article:modified_time" content="2022-10-29T09:29:45.395Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -97,12 +97,13 @@
       
         <h1 id="日期"><a href="#日期" class="headerlink" title="日期"></a>日期</h1><p>date() 函数：获得日期<br>mktime() 函数：创建日期<br>语法：mktime(hour,minute,second,month,day,year)<br>strtotime() 用字符串来创建日期<br>实例：<br><code>&lt;?php $d=strtotime(&quot;10:38pm April 15 2015&quot;); echo &quot;创建日期是 &quot; . date(&quot;Y-m-d h:i:sa&quot;, $d); ?&gt;</code></p>
 <h1 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h1><p>文件插入： include 和 require 语句<br>区别：require 会生成致命错误（E_COMPILE_ERROR）并停止脚本<br>include 只生成警告（E_WARNING），并且脚本会继续<br>直接文件读取：readfile() 函数<br>文件打开：<br>fopen() 函数（有更多选项：fopen(“webdictionary.txt”, “r”) or die(“Unable to open file!”)）<br>fread() 函数读取打开的文件；fclose() 函数用于关闭打开的文件<br>fgets() 函数用于从文件读取单行；fgetc() 函数用于从文件中读取单个字符<br>feof() 函数检查是否已到达 “end-of-file” (EOF)：<br>while(!feof($myfile)) {<br>  echo fgets($myfile) . “<br>“;<br>}<br>文件创建：<br>fopen() 函数（当打开的文件不存在时创建）<br>fwrite() 函数用于写入文件，如果文件中已有内容则会进行覆盖</p>
-<h1 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h1><p>cookie 常用于识别用户，cookie 是服务器留在用户计算机中的小文件。每当相同的计算机通过浏览器请求页面时，它同时会发送 cookie。通过 PHP，能够创建并取回 cookie 的值。<br>setcookie() 函数用于设置 cookie，会自动进行 URL 编码，在取回时进行自动解码（为防止 URL 编码，使用 setrawcookie() 取而代之）<br> $_COOKIE 变量用于取回 cookie 的值<br>isset() 函数来确认是否已设置了 cookie</p>
+<h1 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h1><p>cookie： 常用于识别用户，cookie 是服务器留在用户计算机中的小文件。每当相同的计算机通过浏览器请求页面时，它同时会发送 cookie。通过 PHP，能够创建并取回 cookie 的值。<br>setcookie() 函数：用于设置 cookie，会自动进行 URL 编码，在取回时进行自动解码（为防止 URL 编码，使用 setrawcookie() 取而代之）<br> $_COOKIE ：用于取回 cookie 的值<br>isset() 函数：确认是否已设置了 cookie</p>
+<h1 id="session"><a href="#session" class="headerlink" title="session"></a>session</h1><p>session 变量：用于存储有关用户会话的信息，或更改用户会话的设置。Session 变量保存的信息是单一用户的，并且可供应用程序中的所有页面使用。<br>不过，会话信息是临时的，在用户离开网站后将被删除。如果您需要永久储存信息，可以把数据存储在数据库中<br>session_start() 函数：把用户信息存储到 PHP session 中之前<br>$_SESSION 变量：存储和取回 session 变量<br>unset() 或 session_destroy()：删除数据</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/29/%E9%AB%98%E7%BA%A7%E6%95%99%E7%A8%8B/" data-id="cl9tpfejg0004tkoz10pm758w" data-title="高级教程" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/10/29/%E9%AB%98%E7%BA%A7%E6%95%99%E7%A8%8B/" data-id="cl9tq2xdd0004bsoz8ou391uj" data-title="高级教程" class="article-share-link">Share</a>
       
       
       
