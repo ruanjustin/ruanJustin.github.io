@@ -221,6 +221,14 @@
     <div class="post-body" itemprop="articleBody">
           <p><img src="/image/Apache/%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F.png" alt="打开方式"></p>
 
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/11/09/Apache/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -368,12 +376,14 @@
 <h1 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h1><p>mysql_query() 函数：为了让 PHP 执行语句，必须使用，用于向 MySQL 连接发送查询或命令<br>CREATE DATABASE 语句：<br>用于在 MySQL 中创建数据库。语法：<br>CREATE DATABASE database_name<br>例如：mysql_query(“CREATE DATABASE my_db”,$con)<br>mysql_select_db() 函数选取数据库<br>CREATE TABLE 用于在 MySQL 中创建数据库表。<br>语法：<br>CREATE TABLE table_name<br>(column_name1 data_type,<br>column_name2 data_type,<br>column_name3 data_type,<br>…….<br>)<br>每个表都应有一个主键字段。主键用于对表中的行进行唯一标识。每个主键值在表中必须是唯一的。此外，主键字段不能为空，这是由于数据库引擎需要一个值来对记录进行定位<br>要确保主键字段不为空，我们必须向该字段添加 NOT NULL 设置。例如：<br>personID int NOT NULL AUTO_INCREMENT</p>
 <h1 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h1><p>INSERT INTO 语句：用于向数据库表添加新记录。<br>语法：<br>INSERT INTO table_name<br>VALUES (value1, value2,….)<br>如果需要列则<br>INSERT INTO table_name (column1, column2,…)<br>VALUES (value1, value2,….)<br>也可利用超全局变量将表单中的数据加入数据库中</p>
 <h1 id="Slect"><a href="#Slect" class="headerlink" title="Slect"></a>Slect</h1><p>SELECT 语句：用于从数据库中选取数据。、<br>语法：<br>SELECT column_name(s) FROM table_name<br>mysql_fetch_array() 函数：以数组的形式从记录集返回第一行。每个随后对 mysql_fetch_array() 函数的调用都会返回记录集中的下一行（一行一行地收集，一行一行地记录）<br>如需在HTML 表格中显示结果，用表格格式即可。</p>
-<h1 id="Where"><a href="#Where" class="headerlink" title="Where"></a>Where</h1><p>WHERE 子句：如需选取匹配指定条件的数据，请向 SELECT 语句添加 WHERE 子句。<br>例如：<br>$result &#x3D; mysql_query(“SELECT * FROM PersonsWHERE FirstName&#x3D;’Peter’”)</p>
-<h1 id="Order"><a href="#Order" class="headerlink" title="Order"></a>Order</h1><p>ORDER BY 关键词用于对记录集中的数据进行排序：<br>result &#x3D; mysql_query(“SELECT * FROM Persons ORDER BY age”)<br>DESC 关键词来设定降序排序：<br>SELECT column_name(s)<br>FROM table_name<br>ORDER BY column_name DESC<br>可以根据多个列进行排序。当按照多个列进行排序时，只有第一列相同时才使用第二列：<br>SELECT column_name(s)<br>FROM table_name<br>ORDER BY column_name1, column_name2</p>
-<h1 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h1><p>UPDATE 语句：用于在数据库表中修改数据：<br>UPDATE table_name<br>SET column_name &#x3D; new_value<br>WHERE column_name &#x3D; some_value<br>例如：mysql_query(“UPDATE Persons SET Age &#x3D; ‘36’<br>WHERE FirstName &#x3D; ‘Peter’ AND LastName &#x3D; ‘Griffin’”)</p>
-<h1 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h1><p>DELETE FROM 语句：用于从数据库表中删除记录<br>DELETE FROM table_name<br>WHERE column_name &#x3D; some_value<br>例如：mysql_query(“DELETE FROM Persons WHERE LastName&#x3D;’Griffin’”)</p>
-<h1 id="ODBC"><a href="#ODBC" class="headerlink" title="ODBC"></a>ODBC</h1><p>ODBC 是一种应用程序编程接口（Application Programming Interface，API），使我们有能力连接到某个数据源（比如一个 MS Access 数据库）。<br>创建 ODBC 连接:<br>通过一个 ODBC 连接，您可以连接到您的网络中的任何计算机上的任何数据库，只要 ODBC 连接是可用的<br>odbc_connect() 函数：用于连接到 ODBC 数据源<br>odbc_exec() 函数：用于执行 SQL 语句：<br><code>$conn=odbc_connect(&#39;northwind&#39;,&#39;&#39;,&#39;&#39;);</code><br><code>$sql=&quot;SELECT * FROM customers&quot;; </code><br><code>$rs=odbc_exec($conn,$sql);</code><br>odbc_fetch_row() 函数：用于从结果集中返回记录。如果能够返回行，则返回 true，否则返回 false。<br>该函数有两个参数：ODBC 结果标识符和可选的行号：<br><code>odbc_fetch_row($rs)</code><br>odbc_result() 函数：用于从记录中读取字段。该函数有两个参数：ODBC 结果标识符和字段编号或名称<br>例如：<code>$compname=odbc_result($rs,&quot;CompanyName&quot;)</code><br>odbc_close()函数：用于关闭 ODBC 连接</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/10/31/%E6%95%B0%E6%8D%AE%E5%BA%93/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -453,10 +463,14 @@
 <h1 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h1><p>cookie： 常用于识别用户，cookie 是服务器留在用户计算机中的小文件。每当相同的计算机通过浏览器请求页面时，它同时会发送 cookie。通过 PHP，能够创建并取回 cookie 的值。<br>setcookie() 函数：用于设置 cookie，会自动进行 URL 编码，在取回时进行自动解码（为防止 URL 编码，使用 setrawcookie() 取而代之）<br> $_COOKIE ：用于取回 cookie 的值<br>isset() 函数：确认是否已设置了 cookie</p>
 <h1 id="session"><a href="#session" class="headerlink" title="session"></a>session</h1><p>session 变量：用于存储有关用户会话的信息，或更改用户会话的设置。Session 变量保存的信息是单一用户的，并且可供应用程序中的所有页面使用。<br>不过，会话信息是临时的，在用户离开网站后将被删除。如果您需要永久储存信息，可以把数据存储在数据库中<br>session_start() 函数：把用户信息存储到 PHP session 中之前<br>$_SESSION 变量：存储和取回 session 变量<br>unset() 或 session_destroy()：删除数据</p>
 <h1 id="email"><a href="#email" class="headerlink" title="email"></a>email</h1><p>mail() 函数：用于从脚本中发送电子邮件<br>语法：mail(to,subject,message,headers,parameters)<br>FILTER_SANITIZE_EMAIL ：从字符串中删除电子邮件的非法字符<br>FILTER_VALIDATE_EMAIL： 验证电子邮件地址</p>
-<h1 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h1><p>die() 函数：终止脚本<br>创建自定义错误处理器：error_function(error_level,error_message,error_file,error_line,error_context)<br>（至少两个参数 (error level 和 error message)）<br>Set Error Handler：应用错误处理器。set_error_handler()如需应用多个，添加多个参数，参数几自定义得error函数。<br>trigger_error()：触发错误<br> error_log() 函数：向指定的文件或远程目的地发送错误记录。<br>例：error_log(“Error: [$errno] $errstr”,1,<br> “<a href="mailto:&#x73;&#x6f;&#x6d;&#x65;&#111;&#110;&#x65;&#x40;&#x65;&#120;&#97;&#x6d;&#112;&#x6c;&#101;&#46;&#99;&#x6f;&#x6d;">&#x73;&#x6f;&#x6d;&#x65;&#111;&#110;&#x65;&#x40;&#x65;&#120;&#97;&#x6d;&#112;&#x6c;&#101;&#46;&#99;&#x6f;&#x6d;</a>“,”From: <a href="mailto:&#x77;&#101;&#98;&#x6d;&#97;&#115;&#x74;&#x65;&#x72;&#64;&#101;&#x78;&#97;&#109;&#x70;&#x6c;&#101;&#46;&#x63;&#111;&#x6d;">&#x77;&#101;&#98;&#x6d;&#97;&#115;&#x74;&#x65;&#x72;&#64;&#101;&#x78;&#97;&#109;&#x70;&#x6c;&#101;&#46;&#x63;&#111;&#x6d;</a>“);</p>
-<h1 id="异常（Exception）"><a href="#异常（Exception）" class="headerlink" title="异常（Exception）"></a>异常（Exception）</h1><p>如果异常没有被捕获，而且又没用使用 set_exception_handler() 作相应的处理的话，那么将发生一个严重的错误（致命错误），并且输出 “Uncaught Exception” （未捕获异常）的错误消息。<br>正确的处理程序：try, throw 和 catch（应先建立函数）<br>Try：使用异常的函数应该位于 “try” 代码块内。如果没有触发异常，则代码将照常继续执行。但是如果异常被触发，会抛出一个异常。<br>Throw：这里规定如何触发异常。每一个 “throw” 必须对应至少一个 “catch”<br>Catch：”catch” 代码块会捕获异常，并创建一个包含异常信息的对象<br>例如：<br><code>&lt;?php //创建可抛出一个异常的函数 function checkNum($number)  &#123;  if($number&gt;1)   &#123;   throw new Exception(&quot;Value must be 1 or below&quot;);   &#125;  return true;  &#125; try //在 &quot;try&quot; 代码块中触发异常  &#123;  checkNum(2);  //If the exception is thrown, this text will not be shown  echo &#39;If you see this, the number is 1 or below&#39;;  &#125; catch(Exception $e)//捕获异常  &#123;  echo &#39;Message: &#39; .$e-&gt;getMessage();  &#125; ?&gt;</code><br>(throw可以在函数中也可以在try中）<br>多个异常：在try中输入多个条件<br>重新抛出异常：”try” 代码块包含另一个 “try” 代码块<br>“catch” 代码块中再次抛出异常<br>set_exception_handler() 函数：可设置处理所有未捕获异常的用户定义函数<br>例如：<code>&lt;?php function myException($exception) &#123; echo &quot;&lt;b&gt;Exception:&lt;/b&gt; &quot; , $exception-&gt;getMessage(); &#125; set_exception_handler(&#39;myException&#39;); throw new Exception(&#39;Uncaught Exception occurred&#39;); ?&gt;</code></p>
-<h1 id="过滤器（Filter）"><a href="#过滤器（Filter）" class="headerlink" title="过滤器（Filter）"></a>过滤器（Filter）</h1><p>filter_var():通过一个指定的过滤器来过滤单一的变量<br>filter_var_array():通过相同的或不同的过滤器来过滤多个变量<br>filter_input:获取一个输入变量,并对它进行过滤<br>filter_input_array:获取多个输入变量，并通过相同的或不同的过滤器对它们进行过滤<br>例如：<br>array（”name” &#x3D;&gt; array(“filter”&#x3D;&gt;FILTER_SANITIZE_STRING),”age”&#x3D;&gt;array(“filter”&#x3D;&gt;FILTER_VALIDATE_INT,”options”&#x3D;&gt;array(“min_range”&#x3D;&gt;1,”max_range”&#x3D;&gt;120)),”email”&#x3D;&gt;FILTER_VALIDATE_EMAIL,);result &#x3D; filter_input_array(INPUT_GET, filters)）<br>例如：<br>filter_var(var, FILTER_VALIDATE_INT, int_options)<br>url &#x3D; filter_input(INPUT_POST, “url”, FILTER_SANITIZE_URL)<br>Validating过滤器：<br>用于验证用户输入<br>严格的格式规则（比如 URL 或 E-Mail 验证）<br>如果成功则返回预期的类型，如果失败则返回 FALSE<br>Sanitizing过滤器：<br>用于允许或禁止字符串中指定的字符<br>无数据格式规则<br>始终返回字符串<br>FILTER_CALLBACK过滤器：调用自定义的函数,作为一个过滤器来使用<br>例如：<br><code>&lt;?php function convertSpace($string) &#123; return str_replace(&quot;_&quot;, &quot; &quot;, $string); &#125; $string = &quot;Peter_is_a_great_guy!&quot;; echo filter_var($string, FILTER_CALLBACK, array(&quot;options&quot;=&gt;&quot;convertSpace&quot;)); ?&gt;</code></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/10/29/%E9%AB%98%E7%BA%A7%E6%95%99%E7%A8%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -518,7 +532,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-03-12 20:32:45" itemprop="dateModified" datetime="2023-03-12T20:32:45+08:00">2023-03-12</time>
+      <time title="修改时间：2023-03-12 20:35:03" itemprop="dateModified" datetime="2023-03-12T20:35:03+08:00">2023-03-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -542,6 +556,14 @@
     <div class="post-body" itemprop="articleBody">
           <p>在用户提交该表单时，我们还要做两件事：<br>1.（通过 PHP trim() 函数）去除用户输入数据中不必要的字符（多余的空格、制表符、换行）<br>2.（通过 PHP stripslashes() 函数）删除用户输入数据中的反斜杠（\）<br>3.（通过PHP htmlspeacialchars（）函数）保证安全性<br>preg_match：检索字符串<br>如需在用户点击提交按钮后在输入字段中显示值，我们在以下输入字段的 value 属性中增加了一小段 PHP 脚本：name、email 以及 website。在 comment 文本框字段中，我们把脚本放到了 <code>&lt;textarea&gt; 与 &lt;/textarea&gt;</code> 之间。这些脚本输出 $name、$email、$website 和 $comment 变量的值。<br>然后，我们还需要显示选中了哪个单选按钮。对此，我们必须操作 checked 属性（而非单选按钮的 value 属性）：<br>Name: <code>&lt;input type=&quot;text&quot; name=&quot;name&quot; value=&quot;&lt;?php echo $name;?&gt;&quot;&gt;</code><br>Gender:<code>&lt;input type=&quot;radio&quot; name=&quot;gender&quot; &lt;?php if (isset($gender) &amp;&amp; $gender==&quot;female&quot;) echo &quot;checked&quot;;?&gt; value=</code>“female”&gt;Female<code> &lt;input type=&quot;radio&quot; name=&quot;gender&quot; &lt;?php if (isset($gender) &amp;&amp; $gender==&quot;male&quot;) echo &quot;checked&quot;;?&gt; value=&quot;male&quot;&gt;Male</code></p>
 
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/10/28/%E8%A1%A8%E5%8D%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -618,6 +640,14 @@
     <div class="post-body" itemprop="articleBody">
           <p>超全局变量：$GLOBALS：引用全局作用域中可用的全部变量<br>                    $_SERVER：保存关于报头、路径和脚本位置的信息<br>                               $_SEVER[“PHP_SELF]：返回当前执行脚本的文件名（将表单数据发送到页面本身），易被添加JaveScript代码，应使用htmlspecilchars()函数避免，<br>        $_REQUEST：用于收集HTML表单提交的数据（input）<br>        $_POST：广泛收集method&#x3D;”post”的HTML表单后的表单数据<br>                 传递变量<br>        $_GET：广泛收集method&#x3D;”get”的HTML表单后的表单数据<br>              收集URL中的发送的数据<br>    $_POST和$_GET的区别：<br>      1.前者通过HTTP POST参数传递到当前脚本的变量数组而后者通过URL<br>      2.前者变量未显示在URL中，对其他人不可见。后者会显示在URL中，对任何人都是可见的<br>        $_FILES<br>        $_ENV<br>        $_COOKIE：取回cookie值<br>        $_SESSION：存储和取回 session 变量</p>
 
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/10/27/My-New-Post-1/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -688,6 +718,14 @@
     <div class="post-body" itemprop="articleBody">
           <p>博客悔我青春</p>
 
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/09/21/My-New-Post/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -763,12 +801,14 @@
 
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
 <h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/09/21/hello-world/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
