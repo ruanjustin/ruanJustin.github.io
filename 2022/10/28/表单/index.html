@@ -1,16 +1,277 @@
-{% extends '_layout.swig' %}
-{% import '_macro/sidebar.swig' as sidebar_template with context %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block class %}post posts-expand{% endblock %}
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-{% block content %}
+<link rel="stylesheet" href="/css/main.css">
 
-  {{ partial('_macro/post.swig', {post: page}) }}
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在用户提交该表单时，我们还要做两件事：1.（通过 PHP trim() 函数）去除用户输入数据中不必要的字符（多余的空格、制表符、换行）2.（通过 PHP stripslashes() 函数）删除用户输入数据中的反斜杠（\）3.（通过PHP htmlspeacialchars（）函数）保证安全性preg_match：检索字符串如需在用户点击提交按钮后在输入字段中显示值，我们在以下输入字段的 val">
+<meta property="og:type" content="article">
+<meta property="og:title" content="表单">
+<meta property="og:url" content="http://example.com/2022/10/28/%E8%A1%A8%E5%8D%95/index.html">
+<meta property="og:site_name" content="临摹">
+<meta property="og:description" content="在用户提交该表单时，我们还要做两件事：1.（通过 PHP trim() 函数）去除用户输入数据中不必要的字符（多余的空格、制表符、换行）2.（通过 PHP stripslashes() 函数）删除用户输入数据中的反斜杠（\）3.（通过PHP htmlspeacialchars（）函数）保证安全性preg_match：检索字符串如需在用户点击提交按钮后在输入字段中显示值，我们在以下输入字段的 val">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-28T04:27:31.000Z">
+<meta property="article:modified_time" content="2022-10-28T09:32:22.083Z">
+<meta property="article:author" content="Justin">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/10/28/%E8%A1%A8%E5%8D%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/10/28/%E8%A1%A8%E5%8D%95/","path":"2022/10/28/表单/","title":"表单"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>表单 | 临摹</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">临摹</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Justin</p>
+  <div class="site-description" itemprop="description">适得浮生</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/28/%E8%A1%A8%E5%8D%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Justin">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="临摹">
+      <meta itemprop="description" content="适得浮生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="表单 | 临摹">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          表单
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-10-28 12:27:31 / 修改时间：17:32:22" itemprop="dateCreated datePublished" datetime="2022-10-28T12:27:31+08:00">2022-10-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>在用户提交该表单时，我们还要做两件事：<br>1.（通过 PHP trim() 函数）去除用户输入数据中不必要的字符（多余的空格、制表符、换行）<br>2.（通过 PHP stripslashes() 函数）删除用户输入数据中的反斜杠（\）<br>3.（通过PHP htmlspeacialchars（）函数）保证安全性<br>preg_match：检索字符串<br>如需在用户点击提交按钮后在输入字段中显示值，我们在以下输入字段的 value 属性中增加了一小段 PHP 脚本：name、email 以及 website。在 comment 文本框字段中，我们把脚本放到了 <code>&lt;textarea&gt; 与 &lt;/textarea&gt;</code> 之间。这些脚本输出 $name、$email、$website 和 $comment 变量的值。<br>然后，我们还需要显示选中了哪个单选按钮。对此，我们必须操作 checked 属性（而非单选按钮的 value 属性）：<br>Name: <code>&lt;input type=&quot;text&quot; name=&quot;name&quot; value=&quot;&lt;?php echo $name;?&gt;&quot;&gt;</code><br>Gender:<code>&lt;input type=&quot;radio&quot; name=&quot;gender&quot; &lt;?php if (isset($gender) &amp;&amp; $gender==&quot;female&quot;) echo &quot;checked&quot;;?&gt; value=</code>“female”&gt;Female<code> &lt;input type=&quot;radio&quot; name=&quot;gender&quot; &lt;?php if (isset($gender) &amp;&amp; $gender==&quot;male&quot;) echo &quot;checked&quot;;?&gt; value=&quot;male&quot;&gt;Male</code></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/10/27/My-New-Post-1/" rel="prev" title="超全局变量">
+                  <i class="fa fa-chevron-left"></i> 超全局变量
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/10/29/%E9%AB%98%E7%BA%A7%E6%95%99%E7%A8%8B/" rel="next" title="高级教程">
+                  高级教程 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Justin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

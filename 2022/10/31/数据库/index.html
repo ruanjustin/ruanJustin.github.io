@@ -1,16 +1,293 @@
-{% extends '_layout.swig' %}
-{% import '_macro/sidebar.swig' as sidebar_template with context %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block class %}post posts-expand{% endblock %}
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-{% block content %}
+<link rel="stylesheet" href="/css/main.css">
 
-  {{ partial('_macro/post.swig', {post: page}) }}
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="简介MySQL 是一种数据库。数据库定义了存储信息的结构。在数据库中，存在着一些表。类似 HTML 表格，数据库表含有行、列以及单元。查询：查询是一种询问或请求。通过 MySQL，我们可以向数据库查询具体的信息，并得到返回的记录集。例如：SELECT LastName FROM Persons Connect访问并处理数据库中的数据之前，必须创建到达数据库的连接语法：mysql_connect(s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库">
+<meta property="og:url" content="http://example.com/2022/10/31/%E6%95%B0%E6%8D%AE%E5%BA%93/index.html">
+<meta property="og:site_name" content="临摹">
+<meta property="og:description" content="简介MySQL 是一种数据库。数据库定义了存储信息的结构。在数据库中，存在着一些表。类似 HTML 表格，数据库表含有行、列以及单元。查询：查询是一种询问或请求。通过 MySQL，我们可以向数据库查询具体的信息，并得到返回的记录集。例如：SELECT LastName FROM Persons Connect访问并处理数据库中的数据之前，必须创建到达数据库的连接语法：mysql_connect(s">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-31T09:01:15.000Z">
+<meta property="article:modified_time" content="2022-11-01T16:34:10.394Z">
+<meta property="article:author" content="Justin">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/10/31/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/10/31/%E6%95%B0%E6%8D%AE%E5%BA%93/","path":"2022/10/31/数据库/","title":"数据库"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>数据库 | 临摹</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">临摹</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Connect"><span class="nav-number">2.</span> <span class="nav-text">Connect</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Create"><span class="nav-number">3.</span> <span class="nav-text">Create</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Insert"><span class="nav-number">4.</span> <span class="nav-text">Insert</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Slect"><span class="nav-number">5.</span> <span class="nav-text">Slect</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Where"><span class="nav-number">6.</span> <span class="nav-text">Where</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Order"><span class="nav-number">7.</span> <span class="nav-text">Order</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Update"><span class="nav-number">8.</span> <span class="nav-text">Update</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Delete"><span class="nav-number">9.</span> <span class="nav-text">Delete</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ODBC"><span class="nav-number">10.</span> <span class="nav-text">ODBC</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Justin</p>
+  <div class="site-description" itemprop="description">适得浮生</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/31/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Justin">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="临摹">
+      <meta itemprop="description" content="适得浮生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="数据库 | 临摹">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据库
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-31 17:01:15" itemprop="dateCreated datePublished" datetime="2022-10-31T17:01:15+08:00">2022-10-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-02 00:34:10" itemprop="dateModified" datetime="2022-11-02T00:34:10+08:00">2022-11-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>MySQL 是一种数据库。数据库定义了存储信息的结构。<br>在数据库中，存在着一些表。类似 HTML 表格，数据库表含有行、列以及单元。<br>查询：查询是一种询问或请求。<br>通过 MySQL，我们可以向数据库查询具体的信息，并得到返回的记录集。例如：<br>SELECT LastName FROM Persons</p>
+<h1 id="Connect"><a href="#Connect" class="headerlink" title="Connect"></a>Connect</h1><p>访问并处理数据库中的数据之前，必须创建到达数据库的连接<br>语法：<br>mysql_connect(servername,username,password)<br>关闭连接：mysql_close() 函数</p>
+<h1 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h1><p>mysql_query() 函数：为了让 PHP 执行语句，必须使用，用于向 MySQL 连接发送查询或命令<br>CREATE DATABASE 语句：<br>用于在 MySQL 中创建数据库。语法：<br>CREATE DATABASE database_name<br>例如：mysql_query(“CREATE DATABASE my_db”,$con)<br>mysql_select_db() 函数选取数据库<br>CREATE TABLE 用于在 MySQL 中创建数据库表。<br>语法：<br>CREATE TABLE table_name<br>(column_name1 data_type,<br>column_name2 data_type,<br>column_name3 data_type,<br>…….<br>)<br>每个表都应有一个主键字段。主键用于对表中的行进行唯一标识。每个主键值在表中必须是唯一的。此外，主键字段不能为空，这是由于数据库引擎需要一个值来对记录进行定位<br>要确保主键字段不为空，我们必须向该字段添加 NOT NULL 设置。例如：<br>personID int NOT NULL AUTO_INCREMENT</p>
+<h1 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h1><p>INSERT INTO 语句：用于向数据库表添加新记录。<br>语法：<br>INSERT INTO table_name<br>VALUES (value1, value2,….)<br>如果需要列则<br>INSERT INTO table_name (column1, column2,…)<br>VALUES (value1, value2,….)<br>也可利用超全局变量将表单中的数据加入数据库中</p>
+<h1 id="Slect"><a href="#Slect" class="headerlink" title="Slect"></a>Slect</h1><p>SELECT 语句：用于从数据库中选取数据。、<br>语法：<br>SELECT column_name(s) FROM table_name<br>mysql_fetch_array() 函数：以数组的形式从记录集返回第一行。每个随后对 mysql_fetch_array() 函数的调用都会返回记录集中的下一行（一行一行地收集，一行一行地记录）<br>如需在HTML 表格中显示结果，用表格格式即可。</p>
+<h1 id="Where"><a href="#Where" class="headerlink" title="Where"></a>Where</h1><p>WHERE 子句：如需选取匹配指定条件的数据，请向 SELECT 语句添加 WHERE 子句。<br>例如：<br>$result &#x3D; mysql_query(“SELECT * FROM PersonsWHERE FirstName&#x3D;’Peter’”)</p>
+<h1 id="Order"><a href="#Order" class="headerlink" title="Order"></a>Order</h1><p>ORDER BY 关键词用于对记录集中的数据进行排序：<br>result &#x3D; mysql_query(“SELECT * FROM Persons ORDER BY age”)<br>DESC 关键词来设定降序排序：<br>SELECT column_name(s)<br>FROM table_name<br>ORDER BY column_name DESC<br>可以根据多个列进行排序。当按照多个列进行排序时，只有第一列相同时才使用第二列：<br>SELECT column_name(s)<br>FROM table_name<br>ORDER BY column_name1, column_name2</p>
+<h1 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h1><p>UPDATE 语句：用于在数据库表中修改数据：<br>UPDATE table_name<br>SET column_name &#x3D; new_value<br>WHERE column_name &#x3D; some_value<br>例如：mysql_query(“UPDATE Persons SET Age &#x3D; ‘36’<br>WHERE FirstName &#x3D; ‘Peter’ AND LastName &#x3D; ‘Griffin’”)</p>
+<h1 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h1><p>DELETE FROM 语句：用于从数据库表中删除记录<br>DELETE FROM table_name<br>WHERE column_name &#x3D; some_value<br>例如：mysql_query(“DELETE FROM Persons WHERE LastName&#x3D;’Griffin’”)</p>
+<h1 id="ODBC"><a href="#ODBC" class="headerlink" title="ODBC"></a>ODBC</h1><p>ODBC 是一种应用程序编程接口（Application Programming Interface，API），使我们有能力连接到某个数据源（比如一个 MS Access 数据库）。<br>创建 ODBC 连接:<br>通过一个 ODBC 连接，您可以连接到您的网络中的任何计算机上的任何数据库，只要 ODBC 连接是可用的<br>odbc_connect() 函数：用于连接到 ODBC 数据源<br>odbc_exec() 函数：用于执行 SQL 语句：<br><code>$conn=odbc_connect(&#39;northwind&#39;,&#39;&#39;,&#39;&#39;);</code><br><code>$sql=&quot;SELECT * FROM customers&quot;; </code><br><code>$rs=odbc_exec($conn,$sql);</code><br>odbc_fetch_row() 函数：用于从结果集中返回记录。如果能够返回行，则返回 true，否则返回 false。<br>该函数有两个参数：ODBC 结果标识符和可选的行号：<br><code>odbc_fetch_row($rs)</code><br>odbc_result() 函数：用于从记录中读取字段。该函数有两个参数：ODBC 结果标识符和字段编号或名称<br>例如：<code>$compname=odbc_result($rs,&quot;CompanyName&quot;)</code><br>odbc_close()函数：用于关闭 ODBC 连接</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/10/29/%E9%AB%98%E7%BA%A7%E6%95%99%E7%A8%8B/" rel="prev" title="高级教程">
+                  <i class="fa fa-chevron-left"></i> 高级教程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/11/02/XML-and-AJAX/" rel="next" title="XML and AJAX">
+                  XML and AJAX <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Justin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
