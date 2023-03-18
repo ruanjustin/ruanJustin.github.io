@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="盲注概念盲注是SQL注入的一种，盲注是在SQL注入的基础上，根据SQL注入的回显不同而定义的。也就是在服务器或者页面没有错误回显的时候完成的注入攻击。其实也就是猜解，输入语句猜解数据库名字、表名等等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Less 8（布尔盲注）">
+<meta property="og:url" content="http://example.com/2023/03/18/Less-8%EF%BC%88%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8%EF%BC%89/index.html">
+<meta property="og:site_name" content="临摹">
+<meta property="og:description" content="盲注概念盲注是SQL注入的一种，盲注是在SQL注入的基础上，根据SQL注入的回显不同而定义的。也就是在服务器或者页面没有错误回显的时候完成的注入攻击。其实也就是猜解，输入语句猜解数据库名字、表名等等。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/image/Less-8/1.png">
+<meta property="article:published_time" content="2023-03-18T07:39:12.000Z">
+<meta property="article:modified_time" content="2023-03-18T08:13:09.660Z">
+<meta property="article:author" content="Justin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/Less-8/1.png">
+
+
+<link rel="canonical" href="http://example.com/2023/03/18/Less-8%EF%BC%88%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8%EF%BC%89/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/03/18/Less-8%EF%BC%88%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8%EF%BC%89/","path":"2023/03/18/Less-8（布尔盲注）/","title":"Less 8（布尔盲注）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Less 8（布尔盲注） | 临摹</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">临摹</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B2%E6%B3%A8"><span class="nav-number">1.</span> <span class="nav-text">盲注</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="nav-number">1.2.</span> <span class="nav-text">常用函数：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-8%E7%9A%84%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">Less-8的布尔盲注法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8C%9C%E8%A7%A3%E5%BD%93%E5%89%8D%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D%E9%95%BF%E5%BA%A6%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">猜解当前数据库名长度：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8C%9C%E8%A7%A3%E5%BD%93%E5%89%8D%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D"><span class="nav-number">2.2.</span> <span class="nav-text">猜解当前数据库名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8C%9C%E8%A7%A3%E8%A1%A8%E5%90%8D%E9%95%BF%E5%BA%A6"><span class="nav-number">2.3.</span> <span class="nav-text">猜解表名长度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8C%9C%E8%A7%A3%E8%A1%A8%E5%90%8D"><span class="nav-number">2.4.</span> <span class="nav-text">猜解表名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8C%9C%E8%A7%A3%E5%88%97%E5%90%8D%E9%95%BF%E5%BA%A6"><span class="nav-number">2.5.</span> <span class="nav-text">猜解列名长度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8C%9C%E8%A7%A3%E5%88%97%E5%90%8D"><span class="nav-number">2.6.</span> <span class="nav-text">猜解列名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8C%9C%E8%A7%A3%E5%AD%97%E6%AE%B5%E5%80%BC%E9%95%BF%E5%BA%A6"><span class="nav-number">2.7.</span> <span class="nav-text">猜解字段值长度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8C%9C%E8%A7%A3%E5%AD%97%E6%AE%B5%E5%80%BC"><span class="nav-number">2.8.</span> <span class="nav-text">猜解字段值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python"><span class="nav-number">3.</span> <span class="nav-text">Python</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Justin</p>
+  <div class="site-description" itemprop="description">适得浮生</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/18/Less-8%EF%BC%88%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Justin">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="临摹">
+      <meta itemprop="description" content="适得浮生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Less 8（布尔盲注） | 临摹">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Less 8（布尔盲注）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-03-18 15:39:12 / 修改时间：16:13:09" itemprop="dateCreated datePublished" datetime="2023-03-18T15:39:12+08:00">2023-03-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Sql/" itemprop="url" rel="index"><span itemprop="name">Sql</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>盲注是SQL注入的一种，盲注是在SQL注入的基础上，根据SQL注入的回显不同而定义的。也就是在服务器或者页面没有错误回显的时候完成的注入攻击。其实也就是猜解，输入语句猜解数据库名字、表名等等。</p>
+<span id="more"></span>
+<p>盲注分类：<br>布尔盲注：布尔盲注一般适用于页面没有回显字段(不支持联合查询)，且web页面返回True 或者 false，构造SQL语句，利用and，or等关键字来其后的语句 true 、 false使web页面返回true或者false，从而达到注入的目的来获取信息。<br>时间盲注：适用于页面不会随着输入语句的不同而发生变化，只会回显一种界面。利用sleep()或benchmark()等函数让mysql执行时间变长经常与if(expr1,expr2,expr3)语句结合使用，通过页面的响应时间来判断条件是否正确。if(expr1,expr2,expr3)含义是如果expr1是True,则返回expr2,否则返回expr3。</p>
+<h2 id="常用函数："><a href="#常用函数：" class="headerlink" title="常用函数："></a>常用函数：</h2><p><img src="/image/Less-8/1.png" alt="打开方式"></p>
+<h1 id="Less-8的布尔盲注法"><a href="#Less-8的布尔盲注法" class="headerlink" title="Less-8的布尔盲注法"></a>Less-8的布尔盲注法</h1><h2 id="猜解当前数据库名长度："><a href="#猜解当前数据库名长度：" class="headerlink" title="猜解当前数据库名长度："></a>猜解当前数据库名长度：</h2><p>输入语句：?id&#x3D;1’ and length(database())&gt;10 –+<br>这里采用二分法猜解，先猜其长度是否大于10，若页面回显正常，说明大于十，那就猜长度是不是大于15，直到猜到页面回显不正常，说明小于某值；如果页面回显不正常，说明字段长度小于10，那就猜是不是大于5，以此类推，最终就可以猜解到数据库名的长度了。<br>猜解得长度为8</p>
+<h2 id="猜解当前数据库名"><a href="#猜解当前数据库名" class="headerlink" title="猜解当前数据库名"></a>猜解当前数据库名</h2><p>输入语句猜解第一个字符：?id&#x3D;1’ and left(database(),1)&gt;’m’ –+<br>这里采用二分法进行判断，该语句的意思是返回数据库名字的第一个字符并且判断其和字符 ‘m’ 比较哪个的ASCII码更大。如果页面回显正常说明该数据库的第一个字符位于字符 m 后，我们在剩下的字符中继续使用二分法缩小搜索范围直到找到那个字符就可以；如果页面回显不正常说明该数据库的第一个字符位于字符 ‘m’ 之前，同理使用二分法找就可以。最终经过我们查找可以确定第一个字符是 ‘s’<br>输入语句猜解第二个字符：?id&#x3D;1’ and left(database(),2)&gt;’sm’ –+<br>这里一定要注意函数 left() 函数的用法，大于号后面一定要把之前猜解出来的第一个字符写上，如果不写是查不出来的，因为语句中 2 的意思是取数据库名字的前两位。猜解步骤和猜解第一个字符的方法一样，这里不赘述。猜解第3个就把2换成3，后面把已经猜到的两位字符写上就可以。<br>最终猜出来数据库名为：’security’。</p>
+<h2 id="猜解表名长度"><a href="#猜解表名长度" class="headerlink" title="猜解表名长度"></a>猜解表名长度</h2><p>输入语句：?id&#x3D;1’ and length((select table_name from information_schema.tables where table_schema&#x3D;’security’ limit 0,1))&gt;10 –+<br>因为一次只能猜解一个表名的长度，所以需要用 limit 语句进行限制取值。 其余操作和猜解数据库名长度一样，只不过需要替换 limit 语句后的值从而选取不同的表名而已，这里不在赘述。<br>最终猜解到第一个表名的长度为6，其余表名长度这里不再猜解。</p>
+<h2 id="猜解表名"><a href="#猜解表名" class="headerlink" title="猜解表名"></a>猜解表名</h2><p>输入语句猜解第一个字符：?id&#x3D;1’ and ascii(substr((select table_name from information_schema.tables where table_schema&#x3D;’security’ limit 0,1),1,1))&gt;97 –+<br>这里使用了 ascii 函数，因为该函数只能返回字符串的第一个字符，所以我里面套用了字符串截取函数 substr 每次截取一个字符。当然也可以用 left 函数进行猜解。ascii() 函数猜解原理和 left 的猜解原理一样，只不过转换成了ASCII码进行猜解。同样是根据页面是否正常回显来进行判断，这里我不在赘述判断方法。最终猜解到第一个字符为 ‘e’ 。<br>输入语句进行猜解第二个字符：?id&#x3D;1’ and ascii(substr((select table_name from information_schema.tables where table_schema&#x3D;’security’ limit 0,1),2,1))&gt;97 –+<br>只需要修改 substr 中的参数就可以一个一个去猜解每一个字符，这里第二个字符经过猜解为 ‘m’ 。<br>最终结果为 ‘emails’ 。</p>
+<h2 id="猜解列名长度"><a href="#猜解列名长度" class="headerlink" title="猜解列名长度"></a>猜解列名长度</h2><p>输入语句：?id&#x3D;1’ and length((select column_name from information_schema.columns where table_name&#x3D;’emails’ limit 0,1))&gt;10 –+<br>最终猜到第一列的列名长度为2。</p>
+<h2 id="猜解列名"><a href="#猜解列名" class="headerlink" title="猜解列名"></a>猜解列名</h2><p>猜解第一个字符：?id&#x3D;1’ and left((select column_name from information_schema.columns where table_name&#x3D;’emails’ limit 0,1),1)&gt;’m’ –+<br>接下来破解方法与之前相同， 最终查询到该列名为 ‘id’ 。</p>
+<h2 id="猜解字段值长度"><a href="#猜解字段值长度" class="headerlink" title="猜解字段值长度"></a>猜解字段值长度</h2><p>猜解第一个字段值的长度：?id&#x3D;1’ and length((select id from emails limit 0,1))&gt;10 –+<br>结果为1</p>
+<h2 id="猜解字段值"><a href="#猜解字段值" class="headerlink" title="猜解字段值"></a>猜解字段值</h2><p>猜解第一个字段值：?id&#x3D;1’ ascii((select id from emails limit 0,1))&gt;0 –+<br>最终猜解到第一个字段值为 ‘1’ 。</p>
+<h1 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h1>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/17/Less-7/" rel="prev" title="Less 7">
+                  <i class="fa fa-chevron-left"></i> Less 7
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Justin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
