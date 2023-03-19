@@ -28,8 +28,9 @@
 <meta property="og:description" content="盲注概念盲注是SQL注入的一种，盲注是在SQL注入的基础上，根据SQL注入的回显不同而定义的。也就是在服务器或者页面没有错误回显的时候完成的注入攻击。其实也就是猜解，输入语句猜解数据库名字、表名等等。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/image/Less-8/1.png">
+<meta property="og:image" content="http://example.com/image/Less-8/2.png">
 <meta property="article:published_time" content="2023-03-18T07:39:12.000Z">
-<meta property="article:modified_time" content="2023-03-18T08:13:09.660Z">
+<meta property="article:modified_time" content="2023-03-19T02:19:04.612Z">
 <meta property="article:author" content="Justin">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/image/Less-8/1.png">
@@ -195,9 +196,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-03-18 15:39:12 / 修改时间：16:13:09" itemprop="dateCreated datePublished" datetime="2023-03-18T15:39:12+08:00">2023-03-18</time>
+      <time title="创建时间：2023-03-18 15:39:12" itemprop="dateCreated datePublished" datetime="2023-03-18T15:39:12+08:00">2023-03-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-03-19 10:19:04" itemprop="dateModified" datetime="2023-03-19T10:19:04+08:00">2023-03-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -223,7 +230,8 @@
 <span id="more"></span>
 <p>盲注分类：<br>布尔盲注：布尔盲注一般适用于页面没有回显字段(不支持联合查询)，且web页面返回True 或者 false，构造SQL语句，利用and，or等关键字来其后的语句 true 、 false使web页面返回true或者false，从而达到注入的目的来获取信息。<br>时间盲注：适用于页面不会随着输入语句的不同而发生变化，只会回显一种界面。利用sleep()或benchmark()等函数让mysql执行时间变长经常与if(expr1,expr2,expr3)语句结合使用，通过页面的响应时间来判断条件是否正确。if(expr1,expr2,expr3)含义是如果expr1是True,则返回expr2,否则返回expr3。</p>
 <h2 id="常用函数："><a href="#常用函数：" class="headerlink" title="常用函数："></a>常用函数：</h2><p><img src="/image/Less-8/1.png" alt="打开方式"></p>
-<h1 id="Less-8的布尔盲注法"><a href="#Less-8的布尔盲注法" class="headerlink" title="Less-8的布尔盲注法"></a>Less-8的布尔盲注法</h1><h2 id="猜解当前数据库名长度："><a href="#猜解当前数据库名长度：" class="headerlink" title="猜解当前数据库名长度："></a>猜解当前数据库名长度：</h2><p>输入语句：?id&#x3D;1’ and length(database())&gt;10 –+<br>这里采用二分法猜解，先猜其长度是否大于10，若页面回显正常，说明大于十，那就猜长度是不是大于15，直到猜到页面回显不正常，说明小于某值；如果页面回显不正常，说明字段长度小于10，那就猜是不是大于5，以此类推，最终就可以猜解到数据库名的长度了。<br>猜解得长度为8</p>
+<h1 id="Less-8的布尔盲注法"><a href="#Less-8的布尔盲注法" class="headerlink" title="Less-8的布尔盲注法"></a>Less-8的布尔盲注法</h1><p>首选考虑报错注入，首先寻找注入点，经过测试注入点为单引号我们知道报错注入的原理是通过构造语句报错让报错信息中包含我们想爆破的数据并且回显到页面上，也就是说报错注入使用的前提是页面会回显报错信息。我们接下来去创造一个报错信息，输入语句：?id&#x3D;1’ order by 4 –+<br>经过测试我们发现该数据库中字段数为3，而我输入的语句是让数据库按照第四列的数据进行排序，但是数据库中并没有第四列，那么必定会报错”不存在第四列“，那么我们看一下实际的页面回显情况：<br><img src="/image/Less-8/2.png" alt="打开方式"><br>也就是说：当我们输入的语句正确，页面正常回显；当我们输入的语句错误，页面并不会给我们显示报错信息。显然我们不能使用报错注入了。 </p>
+<h2 id="猜解当前数据库名长度："><a href="#猜解当前数据库名长度：" class="headerlink" title="猜解当前数据库名长度："></a>猜解当前数据库名长度：</h2><p>输入语句：?id&#x3D;1’ and length(database())&gt;10 –+<br>这里采用二分法猜解，先猜其长度是否大于10，若页面回显正常，说明大于十，那就猜长度是不是大于15，直到猜到页面回显不正常，说明小于某值；如果页面回显不正常，说明字段长度小于10，那就猜是不是大于5，以此类推，最终就可以猜解到数据库名的长度了。<br>猜解得长度为8</p>
 <h2 id="猜解当前数据库名"><a href="#猜解当前数据库名" class="headerlink" title="猜解当前数据库名"></a>猜解当前数据库名</h2><p>输入语句猜解第一个字符：?id&#x3D;1’ and left(database(),1)&gt;’m’ –+<br>这里采用二分法进行判断，该语句的意思是返回数据库名字的第一个字符并且判断其和字符 ‘m’ 比较哪个的ASCII码更大。如果页面回显正常说明该数据库的第一个字符位于字符 m 后，我们在剩下的字符中继续使用二分法缩小搜索范围直到找到那个字符就可以；如果页面回显不正常说明该数据库的第一个字符位于字符 ‘m’ 之前，同理使用二分法找就可以。最终经过我们查找可以确定第一个字符是 ‘s’<br>输入语句猜解第二个字符：?id&#x3D;1’ and left(database(),2)&gt;’sm’ –+<br>这里一定要注意函数 left() 函数的用法，大于号后面一定要把之前猜解出来的第一个字符写上，如果不写是查不出来的，因为语句中 2 的意思是取数据库名字的前两位。猜解步骤和猜解第一个字符的方法一样，这里不赘述。猜解第3个就把2换成3，后面把已经猜到的两位字符写上就可以。<br>最终猜出来数据库名为：’security’。</p>
 <h2 id="猜解表名长度"><a href="#猜解表名长度" class="headerlink" title="猜解表名长度"></a>猜解表名长度</h2><p>输入语句：?id&#x3D;1’ and length((select table_name from information_schema.tables where table_schema&#x3D;’security’ limit 0,1))&gt;10 –+<br>因为一次只能猜解一个表名的长度，所以需要用 limit 语句进行限制取值。 其余操作和猜解数据库名长度一样，只不过需要替换 limit 语句后的值从而选取不同的表名而已，这里不在赘述。<br>最终猜解到第一个表名的长度为6，其余表名长度这里不再猜解。</p>
 <h2 id="猜解表名"><a href="#猜解表名" class="headerlink" title="猜解表名"></a>猜解表名</h2><p>输入语句猜解第一个字符：?id&#x3D;1’ and ascii(substr((select table_name from information_schema.tables where table_schema&#x3D;’security’ limit 0,1),1,1))&gt;97 –+<br>这里使用了 ascii 函数，因为该函数只能返回字符串的第一个字符，所以我里面套用了字符串截取函数 substr 每次截取一个字符。当然也可以用 left 函数进行猜解。ascii() 函数猜解原理和 left 的猜解原理一样，只不过转换成了ASCII码进行猜解。同样是根据页面是否正常回显来进行判断，这里我不在赘述判断方法。最终猜解到第一个字符为 ‘e’ 。<br>输入语句进行猜解第二个字符：?id&#x3D;1’ and ascii(substr((select table_name from information_schema.tables where table_schema&#x3D;’security’ limit 0,1),2,1))&gt;97 –+<br>只需要修改 substr 中的参数就可以一个一个去猜解每一个字符，这里第二个字符经过猜解为 ‘m’ 。<br>最终结果为 ‘emails’ 。</p>
