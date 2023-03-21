@@ -37,7 +37,7 @@
 <meta property="og:image" content="http://example.com/image/Less-18~22/7.png">
 <meta property="og:image" content="http://example.com/image/Less-18~22/8.png">
 <meta property="article:published_time" content="2023-03-21T14:55:55.000Z">
-<meta property="article:modified_time" content="2023-03-21T16:40:57.687Z">
+<meta property="article:modified_time" content="2023-03-21T16:44:10.357Z">
 <meta property="article:author" content="Justin">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/image/Less-18~22/1.png">
@@ -211,7 +211,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-03-22 00:40:57" itemprop="dateModified" datetime="2023-03-22T00:40:57+08:00">2023-03-22</time>
+      <time title="修改时间：2023-03-22 00:44:10" itemprop="dateModified" datetime="2023-03-22T00:44:10+08:00">2023-03-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -238,7 +238,7 @@
 <h1 id="Less-18（UA注入）"><a href="#Less-18（UA注入）" class="headerlink" title="Less-18（UA注入）"></a>Less-18（UA注入）</h1><p><img src="/image/Less-18~22/2.png" alt="打开方式"><br>这明显是一个插入语句，插入的数据中出现了 uagent ，查看源码却没有发现对传入的 uagent 进行任何过滤，那么漏洞就在这里。<br>接下来我们使用 Burp Suite 进行抓包，因为只有登录成功才能使页面回显出来 User-Agent ，所以我们要抓取登录成功时的包，页面中给了我们用户名 Dhakkan 我们就用这个用户名进行登录（密码是1），接下来我们将其发送到 Repeater。<br><img src="/image/Less-18~22/3.png" alt="打开方式"><br>这里我们在左侧可以修改页面的 User-Agent、Referer、Cookie等数据并进行发送，在右侧可以实时观察修改之后页面的变化，十分方便。<br>这里我们首先把页面原本的 User-Agent 数据全部删除了，替换成我们的注入语句。<br>接下来就是注入的方法了</p>
 <h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>注入语句为：’ and extractvalue(1,concat(0x7e,database()))) #<br>可以发现多了一个括号，这里解释一下原因，首先我们查看源代码：<br><img src="/image/Less-18~22/2.png" alt="打开方式"><br>可以看到我们最终输入的注入语句是被带入到 VALUES 后面的语句中执行的，因此要闭合 VALUES 后面的括号，这也就是为什么要多加一个括号的原因，当我们不加括号的语句<br>有一个括号是没有闭合的，这样就会导致括号不必配报错，而不是 extractvalue() 函数报错，自然也就得不到我们要的数据。</p>
 <h1 id="Less-19（Referer注入）"><a href="#Less-19（Referer注入）" class="headerlink" title="Less-19（Referer注入）"></a>Less-19（Referer注入）</h1><p><img src="/image/Less-18~22/4.png" alt="打开方式"><br>可以看到这里插入数据的时候插入了 Referer 数据，但是源码中没有对该数据进行过滤，那么我们的注入点就在这里。<br>其他与Less-18相同</p>
-<h1 id="Less-20（Cookie注入）"><a href="#Less-20（Cookie注入）" class="headerlink" title="Less-20（Cookie注入）"></a>Less-20（Cookie注入）</h1><p><img src="/image/Less-18~22/5.png" alt="打开方式"><br>这一段代码表示当我们正常登录的时候页面会回显 COOKIE 的值，可以看到取值的时候是取的 cookee 的值然后进行回显<br><img src="/image/Less-18~22/6.png" alt="打开方式"><br> 可以看到这里就是给 cookee 这个数值赋值的语句，但是源代码中并没有对传入的数值做任何过滤，那么这里就是注入点，修改传入的 COOKIE 值从而进行注入。<br>COOKIE理解：<br>Cookie，有时也用其复数形式 Cookies。类型为“小型文本文件”，是某些网站为了辨别用户身份，进行 Session 跟踪而储存在用户本地终端上的数据（通常经过加密），由用户客户端计算机暂时或永久保存的信息，是一个保存在客户机中的简单的文本文件, 这个文件与特定的 Web 文档关联在一起, 保存了该客户机访问这个 Web 文档时的信息, 当客户机再次访问这个 Web 文档时就会调用这些信息使用。由于 “Cookie” 具有可以保存在客户机上的神奇特性, 因此它可以帮助我们实现记录用户个人信息的功能。Cookie 保存的前提条件就是登录成功，这样网页才会根据我们的需求保存 Cookie。当网页保存了 Cookie 之后我们下次登录的时候就不需要输入账户和密码了，会直接登录。这样固然方便但是也造成了一定的安全问题，当有人获取了你的 Cookie 信息的时候就可以不需要账户和密码直接登录你的账号了。一般还是不要在网页中保存你的 Cookie 信息<br>我们首先使用 Burp Suite 抓包，但是这一关的抓包和其余关有一点不一样，因为我们要抓到网页保存的 Cookie 信息，但是 Cookie 信息只有当我们成功登录某一个账号的时候才会保存，所以我们必须要成功登录某一个账号之后抓取登录后的包。方法就是登录成功后刷新一下页面，抓取刷新时的包，其余步骤相同</p>
+<h1 id="Less-20（Cookie注入）"><a href="#Less-20（Cookie注入）" class="headerlink" title="Less-20（Cookie注入）"></a>Less-20（Cookie注入）</h1><p><img src="/image/Less-18~22/5.png" alt="打开方式"><br>这一段代码表示当我们正常登录的时候页面会回显 COOKIE 的值，可以看到取值的时候是取的 cookee 的值然后进行回显<br><img src="/image/Less-18~22/6.png" alt="打开方式"><br>可以看到这里就是给 cookee 这个数值赋值的语句，但是源代码中并没有对传入的数值做任何过滤，那么这里就是注入点，修改传入的 COOKIE 值从而进行注入。<br>COOKIE理解：<br>Cookie，有时也用其复数形式 Cookies。类型为“小型文本文件”，是某些网站为了辨别用户身份，进行 Session 跟踪而储存在用户本地终端上的数据（通常经过加密），由用户客户端计算机暂时或永久保存的信息，是一个保存在客户机中的简单的文本文件, 这个文件与特定的 Web 文档关联在一起, 保存了该客户机访问这个 Web 文档时的信息, 当客户机再次访问这个 Web 文档时就会调用这些信息使用。由于 “Cookie” 具有可以保存在客户机上的神奇特性, 因此它可以帮助我们实现记录用户个人信息的功能。Cookie 保存的前提条件就是登录成功，这样网页才会根据我们的需求保存 Cookie。当网页保存了 Cookie 之后我们下次登录的时候就不需要输入账户和密码了，会直接登录。这样固然方便但是也造成了一定的安全问题，当有人获取了你的 Cookie 信息的时候就可以不需要账户和密码直接登录你的账号了。一般还是不要在网页中保存你的 Cookie 信息<br>我们首先使用 Burp Suite 抓包，但是这一关的抓包和其余关有一点不一样，因为我们要抓到网页保存的 Cookie 信息，但是 Cookie 信息只有当我们成功登录某一个账号的时候才会保存，所以我们必须要成功登录某一个账号之后抓取登录后的包。方法就是登录成功后刷新一下页面，抓取刷新时的包，其余步骤相同</p>
 <h1 id="Less-21（使用-base-64-编码进行加密的Cookie注入）"><a href="#Less-21（使用-base-64-编码进行加密的Cookie注入）" class="headerlink" title="Less-21（使用 base-64 编码进行加密的Cookie注入）"></a>Less-21（使用 base-64 编码进行加密的Cookie注入）</h1><p><img src="/image/Less-18~22/7.png" alt="打开方式"><br>可以发现 Cookie 值与前一关明显不一样了，直观的看上去就像一堆乱码，但其实这是使用了base-64编码 进行加密了。我们可以进行代码审计看一下加密语句：<br><img src="/image/Less-18~22/8.png" alt="打开方式"><br>这条语句就是加密语句，也就是说网页后台存储我们输入的 Cookie 信息的时候是加密存储的。<br>只要讲我们输入的注入语句也用 base-64编码 加密就可以了，大家可以去网上搜一个加\解密的网页，把要注入的语句进行加密然后输入到 Cookie 值后面就可以。</p>
 <h1 id="Less-22"><a href="#Less-22" class="headerlink" title="Less-22"></a>Less-22</h1><p>这一关和21关操作都一样，只不过注入点换为了双引号，这里就不赘述了</p>
 
