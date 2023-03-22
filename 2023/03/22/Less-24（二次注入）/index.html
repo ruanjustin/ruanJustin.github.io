@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="可以看到让我们输入用户名和密码才能有下一步操作，于是创建账户并登录，可以看到成功登录后的页面是一个密码修改页面。那么目前我们知道的页面有：用户登录界面、用户创建界面、忘记密码界面以及成功登录界面。思考一下，每一个系统都应该有普通用户和管理员用户，管理员用户可以管理普通用户。我们现在是创建了一个普通用户，是没有权限查看其他用户的。但是管理员账户是可以查看其他用户的，如果我们能够得到管理员账户，那不就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Less-24（二次注入）">
+<meta property="og:url" content="http://example.com/2023/03/22/Less-24%EF%BC%88%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5%EF%BC%89/index.html">
+<meta property="og:site_name" content="临摹">
+<meta property="og:description" content="可以看到让我们输入用户名和密码才能有下一步操作，于是创建账户并登录，可以看到成功登录后的页面是一个密码修改页面。那么目前我们知道的页面有：用户登录界面、用户创建界面、忘记密码界面以及成功登录界面。思考一下，每一个系统都应该有普通用户和管理员用户，管理员用户可以管理普通用户。我们现在是创建了一个普通用户，是没有权限查看其他用户的。但是管理员账户是可以查看其他用户的，如果我们能够得到管理员账户，那不就">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/image/Less-24/1.png">
+<meta property="og:image" content="http://example.com/image/Less-24/2.png">
+<meta property="og:image" content="http://example.com/image/Less-24/3.png">
+<meta property="og:image" content="http://example.com/image/Less-24/4.png">
+<meta property="og:image" content="http://example.com/image/Less-24/5.png">
+<meta property="og:image" content="http://example.com/image/Less-24/6.png">
+<meta property="og:image" content="http://example.com/image/Less-24/7.png">
+<meta property="og:image" content="http://example.com/image/Less-24/8.png">
+<meta property="og:image" content="http://example.com/image/Less-24/9.png">
+<meta property="article:published_time" content="2023-03-22T15:01:29.000Z">
+<meta property="article:modified_time" content="2023-03-22T15:55:21.507Z">
+<meta property="article:author" content="Justin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/Less-24/1.png">
+
+
+<link rel="canonical" href="http://example.com/2023/03/22/Less-24%EF%BC%88%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5%EF%BC%89/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/03/22/Less-24%EF%BC%88%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5%EF%BC%89/","path":"2023/03/22/Less-24（二次注入）/","title":"Less-24（二次注入）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Less-24（二次注入） | 临摹</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">临摹</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5%E7%90%86%E8%A7%A3%E5%8F%8A%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">二次注入理解及原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">使用场景：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">注入原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%BA%E9%99%B7%E5%8E%9F%E7%90%86"><span class="nav-number">1.3.</span> <span class="nav-text">缺陷原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E6%B5%81%E7%A8%8B%EF%BC%9A"><span class="nav-number">1.4.</span> <span class="nav-text">注入流程：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%90%86%E7%A4%BA%E6%84%8F%E5%9B%BE"><span class="nav-number">1.5.</span> <span class="nav-text">原理示意图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-24"><span class="nav-number">2.</span> <span class="nav-text">Less-24</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E5%AF%86%E7%A0%81"><span class="nav-number">2.1.</span> <span class="nav-text">修改管理员账户密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90"><span class="nav-number">2.2.</span> <span class="nav-text">详细解析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8E%E9%9D%A2%E7%9A%84%E8%AF%AD%E5%8F%A5%E9%83%BD%E8%A2%AB%E6%B3%A8%E9%87%8A%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%90%8E%E5%8F%B0%E7%9C%9F%E6%AD%A3%E6%89%A7%E8%A1%8C%E7%9A%84%E8%AF%AD%E5%8F%A5%E6%98%AF"><span class="nav-number">3.</span> <span class="nav-text">后面的语句都被注释了，所以后台真正执行的语句是</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Justin</p>
+  <div class="site-description" itemprop="description">适得浮生</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/22/Less-24%EF%BC%88%E4%BA%8C%E6%AC%A1%E6%B3%A8%E5%85%A5%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Justin">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="临摹">
+      <meta itemprop="description" content="适得浮生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Less-24（二次注入） | 临摹">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Less-24（二次注入）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-03-22 23:01:29 / 修改时间：23:55:21" itemprop="dateCreated datePublished" datetime="2023-03-22T23:01:29+08:00">2023-03-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Sql/" itemprop="url" rel="index"><span itemprop="name">Sql</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="/image/Less-24/1.png" alt="打开方式"><br>可以看到让我们输入用户名和密码才能有下一步操作，于是创建账户并登录，可以看到成功登录后的页面是一个密码修改页面。那么目前我们知道的页面有：用户登录界面、用户创建界面、忘记密码界面以及成功登录界面。<br>思考一下，每一个系统都应该有普通用户和管理员用户，管理员用户可以管理普通用户。我们现在是创建了一个普通用户，是没有权限查看其他用户的。但是管理员账户是可以查看其他用户的，如果我们能够得到管理员账户，那不就可以随意查看其他用户了吗？这就是这一关的目标，想办法弄到管理员账户。<br>一般管理员账户的用户名就是 admin 这里我就假设管理员用户名是这个。因为刚刚插入数据成功了，说明我们在新建用户的时候肯定是和后台数据库有交互的。但是我们是无法在输入框直接进行注入操作的，因为后台都做了过滤处理</p>
+<span id="more"></span>
+<h1 id="二次注入理解及原理"><a href="#二次注入理解及原理" class="headerlink" title="二次注入理解及原理"></a>二次注入理解及原理</h1><h2 id="使用场景："><a href="#使用场景：" class="headerlink" title="使用场景："></a>使用场景：</h2><p>当后台使用反斜杠 \ 或者其他手段对我们的注入语句进行了过滤，从而导致我们无法使用一般的注入语句。但是我们可以成功向后台数据库插入或者构建一个新用户，这个时候就可以试试二次注入了，注入的时候我们首先判断注入点是什么，然后我们还需要知道管理员的用户名，这是前提。</p>
+<h2 id="注入原理"><a href="#注入原理" class="headerlink" title="注入原理"></a>注入原理</h2><p>SQL二次注入，指的是在某些特定应用场景下，我们先把SQL注入的脏代码写入到目标站点数据库中。然后在某些实际应用中通过后台数据库将该数据取出使用（例如查询，修改密码等等），使得我们写入的脏代码执行。也可以理解为，攻击者构造的恶意数据存储在数据库后，恶意数据被读取并进入到SQL查询语句所导致的注入。防御者可能在用户输入恶意数据时对其中的特殊字符进行了转义处理，但在恶意数据插入到数据库时被处理的数据又被还原并存储在数据库中，当Web程序调用存储在数据库中的恶意数据并执行SQL查询时，就发生了SQL二次注入。</p>
+<h2 id="缺陷原理"><a href="#缺陷原理" class="headerlink" title="缺陷原理"></a>缺陷原理</h2><p>防御者虽然在前台对我们输入的语句进行了过滤导致我们无法注入，但是却没有对后台输入作出处理，也就是过分信任后台数据，从而导致读取后台数据的时候发生注入。</p>
+<h2 id="注入流程："><a href="#注入流程：" class="headerlink" title="注入流程："></a>注入流程：</h2><p>第一步要求我们插入的恶意数据能够成功写入到目标站点的数据库中，站点可以对我们写入的恶意数据进行转义，但是数据本身不会被修改，也不会因为是恶意的数据而拒绝我们的写入；<br>第二步要求我们的恶意数据能够在某种应用场景下取出，并且不会对其站点内部的数据进行检验（充分信任内部数据）。</p>
+<h2 id="原理示意图"><a href="#原理示意图" class="headerlink" title="原理示意图"></a>原理示意图</h2><p><img src="/image/Less-24/2.png" alt="打开方式"></p>
+<h1 id="Less-24"><a href="#Less-24" class="headerlink" title="Less-24"></a>Less-24</h1><h2 id="修改管理员账户密码"><a href="#修改管理员账户密码" class="headerlink" title="修改管理员账户密码"></a>修改管理员账户密码</h2><p>我们首先创造一个新用户 admin’# ，密码就设置为1，创建完成后登录新用户，之后我们修改其密码为2<br>我们要知道真正的管理员用户名是 admin 。我们要做的是将原本 admin 的密码修改为我们输入的密码，也就是2。 其实现在已经修改成功了，我们尝试登录管理员账户 admin（密码为2）<br><img src="/image/Less-24/3.png" alt="打开方式"><br>可以看到我成功登录了管理员账户。二次注入也就完成了。</p>
+<h2 id="详细解析"><a href="#详细解析" class="headerlink" title="详细解析"></a>详细解析</h2><p>首先当我们插入了数据：用户名：admin’#    密码：1的时候我们看一下此时的数据库：<br><img src="/image/Less-24/4.png" alt="打开方式"><br>可以看到我们已经成功插入了数据，我们进行代码审计看一下具体的代码，先进入login_create.php 文件查看：<br><img src="/image/Less-24/5.png" alt="打开方式"><br>这部分代码的含义是当我们输入一个新用户的时候首先检查用户名有没有重名<br><img src="/image/Less-24/6.png" alt="打开方式"><br>这条语句就是插入语句。虽然对我们输入的注入语句进行过滤，但也只是让特殊符号无效化，并没有给我们直接删除，这也造成了二次注入的漏洞。<br>接下来我们分析一下 login.php 中的源码：<br><img src="/image/Less-24/7.png" alt="打开方式"><br>这个页面就是我们的报错页面，当你输入注入点的时候就会出现这个页面，从这段代码可以看到，当我们输入一些数据的时候都会调用这个文件，而这个文件会对我们输入的数据进行过滤，使用 mysql_real_escape_string() 函数进行过滤，该函数的作用是转义 SQL 语句中使用的字符串中的特殊字符：<br>\x00<br>\n<br>\r<br><br>‘<br>“<br>\x1a<br>接下来我们分析 pass_change.php 文件<br><img src="/image/Less-24/8.png" alt="打开方式"><br>从这段代码可以看到，在修改密码的时候对密码的输入框使用函数mysql_real_escape_string() 进行了过滤，但是对用户名却没有做任何过滤处理，直接就带入到后面的 Update 更新语句进行了更新，因为我们输入的用户名是 admin’# 当被带入到更新语句后实际执行的语句是：<br>$sql &#x3D; “UPDATE users SET PASSWORD&#x3D;’1’ where username&#x3D;’admin’#’ and password&#x3D;’$curr_pass’ “;</p>
+<h1 id="后面的语句都被注释了，所以后台真正执行的语句是"><a href="#后面的语句都被注释了，所以后台真正执行的语句是" class="headerlink" title="后面的语句都被注释了，所以后台真正执行的语句是"></a>后面的语句都被注释了，所以后台真正执行的语句是</h1><p>$sql &#x3D; “UPDATE users SET PASSWORD&#x3D;’1’ where username&#x3D;’admin’;<br>这条语句的意思是更新用户 admin 的密码为1。这样我们就成功修改了管理员用户的密码<br>此时我们看一下数据库中的情况：<br><img src="/image/Less-24/9.png" alt="打开方式"><br>可以看到成功修改了管理员 admin 用户的密码为1，注入成功。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/22/Less-23%EF%BC%88%E6%B3%A8%E9%87%8A%E7%AC%A6%E8%A2%AB%E8%BF%87%E6%BB%A4%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E6%B3%A8%E5%85%A5%EF%BC%89/" rel="prev" title="Less-23（注释符被过滤的情况下注入）">
+                  <i class="fa fa-chevron-left"></i> Less-23（注释符被过滤的情况下注入）
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Justin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
