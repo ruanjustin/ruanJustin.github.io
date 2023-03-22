@@ -118,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -152,6 +152,92 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/22/Less-23%EF%BC%88%E6%B3%A8%E9%87%8A%E7%AC%A6%E8%A2%AB%E8%BF%87%E6%BB%A4%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E6%B3%A8%E5%85%A5%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Justin">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="临摹">
+      <meta itemprop="description" content="适得浮生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 临摹">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/03/22/Less-23%EF%BC%88%E6%B3%A8%E9%87%8A%E7%AC%A6%E8%A2%AB%E8%BF%87%E6%BB%A4%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E6%B3%A8%E5%85%A5%EF%BC%89/" class="post-title-link" itemprop="url">Less-23（注释符被过滤的情况下注入）</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-03-22 21:25:28 / 修改时间：22:01:53" itemprop="dateCreated datePublished" datetime="2023-03-22T21:25:28+08:00">2023-03-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Sql/" itemprop="url" rel="index"><span itemprop="name">Sql</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>可以发现是一个非常普通的 GET请求 注入，我们输入单引号测试一下注入点,页面回显了错误，那么注入点可能就是单引号，然后我们去测试一下列数。<br>输入语句：?id&#x3D;1’ order by 4 –+<br><img src="/image/Less-23/1.png" alt="打开方式"><br>可以发现页面报了语法错误，那可能是注入点问题，我们测试一下双引号做注入点<br>输入双引号后页面都不报错了，那注入点肯定不是双引号，但是单引号做注入点输入的 Order By 语句又无效。我这里准备直接用 Union 语句去测试列数，因为只要列数不匹配依旧会报错，也可以判断列数。注入点必定不是双引号，这里依旧拿单引号做测试(仍未排除单引号的可能）</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/03/22/Less-23%EF%BC%88%E6%B3%A8%E9%87%8A%E7%AC%A6%E8%A2%AB%E8%BF%87%E6%BB%A4%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E6%B3%A8%E5%85%A5%EF%BC%89/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -197,7 +283,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-03-22 00:55:33" itemprop="dateModified" datetime="2023-03-22T00:55:33+08:00">2023-03-22</time>
+      <time title="修改时间：2023-03-22 00:56:45" itemprop="dateModified" datetime="2023-03-22T00:56:45+08:00">2023-03-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -950,101 +1036,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/15/less-5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Justin">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="临摹">
-      <meta itemprop="description" content="适得浮生">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 临摹">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/15/less-5/" class="post-title-link" itemprop="url">less 5（双查询注入）</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-03-15 22:03:30" itemprop="dateCreated datePublished" datetime="2023-03-15T22:03:30+08:00">2023-03-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-03-16 01:18:20" itemprop="dateModified" datetime="2023-03-16T01:18:20+08:00">2023-03-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Sql/" itemprop="url" rel="index"><span itemprop="name">Sql</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>易判断为字符型注入，且字段数为3，但是无法显示回显位。<br>这里介绍一种方法：</p>
-<h1 id="双查询注入"><a href="#双查询注入" class="headerlink" title="双查询注入"></a>双查询注入</h1>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/03/15/less-5/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>
