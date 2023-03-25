@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Less-46爆破可以看到页面回显：请输入参数为SORT那就输入语句：?sort&#x3D;1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Less 46~53（Order By注入）">
+<meta property="og:url" content="http://example.com/2023/03/25/Less-46-53%EF%BC%88Order-By%E6%B3%A8%E5%85%A5%EF%BC%89/index.html">
+<meta property="og:site_name" content="临摹">
+<meta property="og:description" content="Less-46爆破可以看到页面回显：请输入参数为SORT那就输入语句：?sort&#x3D;1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/image/Less-46~53/1.png">
+<meta property="og:image" content="http://example.com/image/Less-46~53/2.png">
+<meta property="og:image" content="http://example.com/image/Less-46~53/3.png">
+<meta property="og:image" content="http://example.com/image/Less-46~53/2.png">
+<meta property="og:image" content="http://example.com/image/Less-46~53/4.png">
+<meta property="og:image" content="http://example.com/image/Less-46~53/5.png">
+<meta property="article:published_time" content="2023-03-25T15:29:19.000Z">
+<meta property="article:modified_time" content="2023-03-25T16:17:05.911Z">
+<meta property="article:author" content="Justin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/Less-46~53/1.png">
+
+
+<link rel="canonical" href="http://example.com/2023/03/25/Less-46-53%EF%BC%88Order-By%E6%B3%A8%E5%85%A5%EF%BC%89/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/03/25/Less-46-53%EF%BC%88Order-By%E6%B3%A8%E5%85%A5%EF%BC%89/","path":"2023/03/25/Less-46-53（Order-By注入）/","title":"Less 46~53（Order By注入）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Less 46~53（Order By注入） | 临摹</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">临摹</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-46"><span class="nav-number">1.</span> <span class="nav-text">Less-46</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%88%86%E7%A0%B4"><span class="nav-number">1.1.</span> <span class="nav-text">爆破</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1"><span class="nav-number">1.2.</span> <span class="nav-text">代码审计</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-47"><span class="nav-number">2.</span> <span class="nav-text">Less-47</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-48"><span class="nav-number">3.</span> <span class="nav-text">Less-48</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-49"><span class="nav-number">4.</span> <span class="nav-text">Less-49</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-50"><span class="nav-number">5.</span> <span class="nav-text">Less-50</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-51"><span class="nav-number">6.</span> <span class="nav-text">Less-51</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-52"><span class="nav-number">7.</span> <span class="nav-text">Less-52</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-53"><span class="nav-number">8.</span> <span class="nav-text">Less-53</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Justin</p>
+  <div class="site-description" itemprop="description">适得浮生</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/25/Less-46-53%EF%BC%88Order-By%E6%B3%A8%E5%85%A5%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Justin">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="临摹">
+      <meta itemprop="description" content="适得浮生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Less 46~53（Order By注入） | 临摹">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Less 46~53（Order By注入）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-03-25 23:29:19" itemprop="dateCreated datePublished" datetime="2023-03-25T23:29:19+08:00">2023-03-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-03-26 00:17:05" itemprop="dateModified" datetime="2023-03-26T00:17:05+08:00">2023-03-26</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Less-46"><a href="#Less-46" class="headerlink" title="Less-46"></a>Less-46</h1><h2 id="爆破"><a href="#爆破" class="headerlink" title="爆破"></a>爆破</h2><p><img src="/image/Less-46~53/1.png" alt="打开方式"><br>可以看到页面回显：请输入参数为SORT<br>那就输入语句：?sort&#x3D;1</p>
+<span id="more"></span>
+<p>页面回显：<br><img src="/image/Less-46~53/2.png" alt="打开方式"><br>可以看到页面成功回显了数据，而且我们发现是经过排序之后展现出来的。说明后台的查询语句应该是根据我们输入的参数来进行排序之后显现的。<br>接下来我们测试一下SQL查询语句的闭合方式是什么，输入语句：?sort&#x3D;1’<br><img src="/image/Less-46~53/3.png" alt="打开方式"><br>我们输入语句进一步测试：?sort&#x3D;1’ and ‘1’&#x3D;’1<br>可以看到页面依旧回显错误，说明闭合方式不是单引号，这里我测试一下是不是整型，输入语句：?sort&#x3D;1 and 1&#x3D;1<br><img src="/image/Less-46~53/2.png" alt="打开方式"><br>可以发现这一关的闭合方式是整型<br>接下来我测试一下有没有显示位，输入语句：?sort&#x3D;1’ union select 1,2,3 –+<br>页面回显：<br><img src="/image/Less-46~53/4.png" alt="打开方式"><br>我们发现居然报了语法错误，报语法错误的话可能是语句写错了，但是经过我检查语句并没有写错。还有一种可能就是后台过滤，但是我们看到页面回显并没有进行任何过滤。那只有一种可能，那就是后台的查询语句并不支持联合注入，这个我下面讲为什么不支持（其中涉及了SQL语句的一个书写顺序问题） 。接下来可以一下报错注入<br>输入语句：?sort&#x3D;1 and extractvalue(1,concat(0x7e,database())) –+<br>…</p>
+<h2 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h2><p>前面我说了不能使用联合注入，这里我带大家看一下具体的原因，首先我们查看一下源代码中的SQL查询语句：<br><img src="/image/Less-46~53/5.png" alt="打开方式"><br>可以看到我们输入的参数位于Order By语句后，而在MYSQL查询语法中，排序是放在最后面的，也就是说我们写入的联合查询的语句必须要放到排序语句之前才可以正常使用，显而易见这里是行不通的，所以这里不能使用联合注入</p>
+<h1 id="Less-47"><a href="#Less-47" class="headerlink" title="Less-47"></a>Less-47</h1><p>这一关中只是闭合方式不一样，这一关的闭合方式是单引号，其余操作都和46关一样</p>
+<h1 id="Less-48"><a href="#Less-48" class="headerlink" title="Less-48"></a>Less-48</h1><p>这一关中没有SQL语法错误的回显，也就不能使用报错注入了，也不能使用联合注入，只能使用盲注<br>通过测试可以使用布尔盲注</p>
+<h1 id="Less-49"><a href="#Less-49" class="headerlink" title="Less-49"></a>Less-49</h1><p>这一关的闭合方式是单引号，并且页面没有对错的不同回显，所以这一关中只能使用时间盲注</p>
+<h1 id="Less-50"><a href="#Less-50" class="headerlink" title="Less-50"></a>Less-50</h1><p>这一关和46关完全一样，都是闭合方式为整型的Order By注入</p>
+<h1 id="Less-51"><a href="#Less-51" class="headerlink" title="Less-51"></a>Less-51</h1><p>这一关和46关相比只是闭合方式不同，这一关的闭合方式是单引号，其余操作都和46关一样</p>
+<h1 id="Less-52"><a href="#Less-52" class="headerlink" title="Less-52"></a>Less-52</h1><p>这一关中没有报错回显，只能使用盲注，和48关完全一样，使用布尔盲注即可</p>
+<h1 id="Less-53"><a href="#Less-53" class="headerlink" title="Less-53"></a>Less-53</h1><p>这一关和49关完全一样，闭合方式为单引号，使用时间盲注</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/25/Less-38-45%EF%BC%88%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5%EF%BC%89/" rel="prev" title="Less 38~45（堆叠注入）">
+                  <i class="fa fa-chevron-left"></i> Less 38~45（堆叠注入）
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Justin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
