@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Less-32（宽字节注入练习）我们尝试测试一下注入点，输入语句：?id&#x3D;1可以看到我们输入的语句被变成了 ?id&#x3D;1\ 说明我们输入的反斜杠被后台注释掉了。我们输入单引号测试一下：?id&#x3D;1’">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Less 32~37（宽字节注入）">
+<meta property="og:url" content="http://example.com/2023/03/25/Less-32-37%EF%BC%88%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%EF%BC%89/index.html">
+<meta property="og:site_name" content="临摹">
+<meta property="og:description" content="Less-32（宽字节注入练习）我们尝试测试一下注入点，输入语句：?id&#x3D;1可以看到我们输入的语句被变成了 ?id&#x3D;1\ 说明我们输入的反斜杠被后台注释掉了。我们输入单引号测试一下：?id&#x3D;1’">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/image/Less-32~37/1.png">
+<meta property="og:image" content="http://example.com/image/Less-32~37/2.png">
+<meta property="og:image" content="http://example.com/image/Less-32~37/3.png">
+<meta property="og:image" content="http://example.com/image/Less-32~37/4.png">
+<meta property="og:image" content="http://example.com/image/Less-32~37/5.png">
+<meta property="og:image" content="http://example.com/image/Less-32~37/6.png">
+<meta property="og:image" content="http://example.com/image/Less-32~37/7.png">
+<meta property="og:image" content="http://example.com/image/Less-32~37/8.png">
+<meta property="article:published_time" content="2023-03-24T16:40:14.000Z">
+<meta property="article:modified_time" content="2023-03-25T05:52:40.435Z">
+<meta property="article:author" content="Justin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/Less-32~37/1.png">
+
+
+<link rel="canonical" href="http://example.com/2023/03/25/Less-32-37%EF%BC%88%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%EF%BC%89/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/03/25/Less-32-37%EF%BC%88%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%EF%BC%89/","path":"2023/03/25/Less-32-37（宽字节注入）/","title":"Less 32~37（宽字节注入）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Less 32~37（宽字节注入） | 临摹</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">临摹</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-32%EF%BC%88%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%E7%BB%83%E4%B9%A0%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">Less-32（宽字节注入练习）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86%E8%AE%B2%E8%A7%A3%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">宽字节注入原理讲解：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1"><span class="nav-number">1.1.1.</span> <span class="nav-text">代码审计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.2.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URL%E7%BC%96%E7%A0%81%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.3.</span> <span class="nav-text">URL编码方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%88%86%E7%A0%B4"><span class="nav-number">1.2.</span> <span class="nav-text">爆破</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">1.3.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95-1"><span class="nav-number">1.4.</span> <span class="nav-text">方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-33"><span class="nav-number">2.</span> <span class="nav-text">Less-33</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-34"><span class="nav-number">3.</span> <span class="nav-text">Less-34</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-35"><span class="nav-number">4.</span> <span class="nav-text">Less-35</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-36"><span class="nav-number">5.</span> <span class="nav-text">Less-36</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Less-37"><span class="nav-number">6.</span> <span class="nav-text">Less-37</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Justin</p>
+  <div class="site-description" itemprop="description">适得浮生</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/25/Less-32-37%EF%BC%88%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Justin">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="临摹">
+      <meta itemprop="description" content="适得浮生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Less 32~37（宽字节注入） | 临摹">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Less 32~37（宽字节注入）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-03-25 00:40:14 / 修改时间：13:52:40" itemprop="dateCreated datePublished" datetime="2023-03-25T00:40:14+08:00">2023-03-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Sql/" itemprop="url" rel="index"><span itemprop="name">Sql</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Less-32（宽字节注入练习）"><a href="#Less-32（宽字节注入练习）" class="headerlink" title="Less-32（宽字节注入练习）"></a>Less-32（宽字节注入练习）</h1><p>我们尝试测试一下注入点，输入语句：?id&#x3D;1<br><img src="/image/Less-32~37/1.png" alt="打开方式"><br>可以看到我们输入的语句被变成了 ?id&#x3D;1\ 说明我们输入的反斜杠被后台注释掉了。我们输入单引号测试一下：?id&#x3D;1’</p>
+<span id="more"></span>
+<p>可以看到我们输入的语句被后台变成了 ?id&#x3D;1&#39;  我们输入的单引号同样被后台注释掉了<br>那么说明以前的注入方法在这里都行不通了，需要一种新的方法，即宽字节注入</p>
+<h2 id="宽字节注入原理讲解："><a href="#宽字节注入原理讲解：" class="headerlink" title="宽字节注入原理讲解："></a>宽字节注入原理讲解：</h2><h3 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h3><p><img src="/image/Less-32~37/2.png" alt="打开方式"><br>上述函数 preg_replace() 为替换 ‘ 、\ 和 “ 的函数，将 ‘ 转为 &#39; ， 将 \ 转为 \ ，将 “ 转为 &quot;。一般来说如果发现各种注入点都不行的话，就试试宽字节注入，可能是后台把注入点注释了。<br><img src="/image/Less-32~37/3.png" alt="打开方式"><br>通过这条语句可以判断这一关的注入点就是单引号，但是单引号被过滤了。我们需要使用宽字节注入的方法绕过<br>通过我们输入的语句以及页面回显发现，这一关的过滤方法是在我们输入的单引号等字符前加反斜杠进行注释的方法去过滤，那如果我们可以让这个反斜杠失去注释作用，那就可以成功注入了。<br><img src="/image/Less-32~37/4.png" alt="打开方式"><br>通过这两条语句可以看出，前端在连接数据库时，会将字符编码设置为GBK编码集合，然后进行SQL语句拼接，最后进行数据库查询。GBK是汉字编码标准之一，采用双字节编码方案，其编码范围：8140－FEFE，剔除xx7F码位，共23940个码位。</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>反斜杠 \ 的URL编码是 %5c ，在GBK编码的范围内。既然他每次过滤都会加反斜杠，那么我们是不是可以在反斜杠之前加一些字符让其转换为GBK编码的汉字，从而让其失去转义的作用。<br>这一关中我们可以在单引号之前输入一个十六进制编码的字符，与 %5c 组成一个GBK 编码的汉字。这样SQL 语句传入数据库的时候，转移字符 %5c 就会被看作GBK 汉字的低位字节编码，从而失去转义的作用，这里添加字符 %df<br>原本输入的语句是：?id&#x3D;1’ ，经过后台转义后变为：?id&#x3D;1&#39; ，转换为URL编码形式是：?id&#x3D;1%5c%27 。当我输入特殊字符 %df 后变为：?id&#x3D;1%df%5c%27 。对于GBK编码，每一个字符是由两个字节构成，在 %df 遇到 %5c 时，由于 %df 的ASCII码值大于128，超出了ASCII码值的范围，所以不会被认定为URL编码，其会自动拼接 %5c 形成一个汉字，吃掉反斜线。 而 %27 和 %20 等处于ASCII(0~128)码值范围的字符就会被保留。所以最终的语句会转换为：?id&#x3D;1%df5c%27 。将 %df5c 转换为汉字是“運”，所以换一种方式表达就是：?id&#x3D;1運’ 这样反斜线就失去原本注释的作用了。可以进行注入了。</p>
+<h3 id="URL编码方式"><a href="#URL编码方式" class="headerlink" title="URL编码方式"></a>URL编码方式</h3><p>首先将一个字符转换为其ASCII码值表示，然后将其ACSII码值转换为十六进制式表示，再在前面加上”%”,就是该字符的URL编码。<br>例如：” \ “ 的ASCII码是92，92的十六进制是5c, 所以 “ \ “ 的URL编码就是 %5c<br>URL 编码将字符转换为可通过因特网传输的格式。 URL编码只能使用 ASCII 字符集，通过因特网进行发送。</p>
+<h2 id="爆破"><a href="#爆破" class="headerlink" title="爆破"></a>爆破</h2><p>输入语句：?id&#x3D;1%df<br>?id&#x3D;0%df’ union select 1,2,3 –+<br>可以看到我们成功得到了页面的显示位，之后使用联合注入就可以了<br>…</p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>爆破列名时注意不能按照以前的方法爆破列名了<br>假设我们输入语句：?id&#x3D;1%df’ union select 1,group_concat(column_name),3 from information_schema.columns where table_name&#x3D;’emails’ –+<br>但是由于对单引号的过滤，真正传给后台执行的语句会变成：?id&#x3D;1%df’ union select 1,group_concat(column_name),3 from information_schema.columns where table_name&#x3D;&#39;emails&#39; –+<br><img src="/image/Less-32~37/5.png" alt="打开方式"><br>可以看到确实被过滤了，这里不能使用添加特殊字符绕过的方法。我这里介绍两种方法绕过</p>
+<h2 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h2><p>第一种方法：使用子查询绕过<br>输入语句：?id&#x3D;0%df’ union select 1,group_concat(column_name),3 from information_schema.columns where table_name&#x3D;(select table_name from information_schema.tables where table_schema&#x3D;database() limit 0,1) –+<br>这种方法就是把原本输入表名的地方在写一个查询语句，也就是 table_name&#x3D;查询语句查询的结果。其中查询语句使用 limit 语句限制输出的表名就可以了。<br>第二种方法：使用十六进制编码表示<br>我们可以先将表名转换为其 ASCII码值的十六进制表示，然后在前面加一个 0x 就可以了。其实就是字符的URL编码将其前面的%替换为 0x 就可以。<br>例如：emails 转换为ASCII码值的十六进制表示是65 6D 61 69 6C 73，加上 0x，所以最终 emails 的另一种表示方法就是 0x656D61696C73。</p>
+<h1 id="Less-33"><a href="#Less-33" class="headerlink" title="Less-33"></a>Less-33</h1><p>这一关只是在转义的时候和32关使用的函数不同，其余都一样<br><img src="/image/Less-32~37/6.png" alt="打开方式"><br>可以看到在这个函数内使用了函数 addslashes() 函数对我们输入的字符串进行了过滤，addslashe() 函数的作用是返回在预定义字符之前添加反斜杠的字符串。<br>预定义字符为（会自动转换的字符）：<br>单引号 （’）<br>双引号 （”）<br>反斜杠 （\）<br>零（0）<br>例如：输入Shanghai is the “biggest” city in China<br>得到Shanghai is the &quot;biggest&quot; city in China</p>
+<h1 id="Less-34"><a href="#Less-34" class="headerlink" title="Less-34"></a>Less-34</h1><p>和前几关一样，只不过输入注入语句的地方换成了POST表单，注入点为单引号<br><img src="/image/Less-32~37/7.png" alt="打开方式"><br>可以看到使用了 addslashes() 函数对我们输入的字符串进行了过滤。具体注入过程不在赘述，注入语句和32关一摸一样。</p>
+<h1 id="Less-35"><a href="#Less-35" class="headerlink" title="Less-35"></a>Less-35</h1><p>这一关只是注入点不同，注入点为整型,其余都一样<br>操作都和32关一样，因为是整型注入所以也不用加特殊字符了，主要影响的就是爆破列名的时候表名两边的所使用单引号，使用子查询或者十六进制编码表示表名就可以绕过了。</p>
+<h1 id="Less-36"><a href="#Less-36" class="headerlink" title="Less-36"></a>Less-36</h1><p><img src="/image/Less-32~37/8.png" alt="打开方式"><br>可以看到这一关使用 mysql_real_escape_string() 函数进行过滤处理。<br>mysql_real_escape_string() 函数的作用是转义 SQL 语句中使用的字符串中的特殊字符。<br>下列字符受影响：<br>\x00<br>\n<br>\r<br><br>‘<br>“<br>\x1a<br>如果转义成功，则该函数返回被转义的字符串。如果失败，则返回 false。<br>这一关操作和32关一摸一样</p>
+<h1 id="Less-37"><a href="#Less-37" class="headerlink" title="Less-37"></a>Less-37</h1><p>POST表单方式，也是使用宽字节注入，注入点是单引号。<br>转义函数是mysql_real_escape_string() 函数。除了替换一下注入语句写入的地方外其余操作均和32关一样</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/25/Less-29-31%EF%BC%88%E5%9F%BA%E4%BA%8EGET-%E5%8F%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B3%A8%E5%85%A5%EF%BC%89/" rel="prev" title="Less 29~31（基于GET_双服务器注入）">
+                  <i class="fa fa-chevron-left"></i> Less 29~31（基于GET_双服务器注入）
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Justin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
