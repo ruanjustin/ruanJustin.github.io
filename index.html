@@ -118,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -152,6 +152,91 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/20/%E2%80%9DSSTI%E2%80%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Justin">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="临摹">
+      <meta itemprop="description" content="适得浮生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 临摹">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/08/20/%E2%80%9DSSTI%E2%80%9C/" class="post-title-link" itemprop="url">”SSTI“</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-08-20 01:07:22 / 修改时间：01:16:18" itemprop="dateCreated datePublished" datetime="2023-08-20T01:07:22+08:00">2023-08-20</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="模板注入"><a href="#模板注入" class="headerlink" title="模板注入"></a>模板注入</h1><p>服务器端模板注入(Server-Side Template Injection)<br>模板注入：<br>为了写 html 代码的时候方便，很多网站都会使用模板，先写好一个 html 模板文件，<br>比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">python</span><br><span class="line">def test():</span><br><span class="line">code = request.args.get(&#x27;id&#x27;)</span><br><span class="line">html = &#x27;&#x27;&#x27;</span><br><span class="line">&lt;h3&gt;%s&lt;/h3&gt;</span><br><span class="line">%(code)</span><br><span class="line">return render_template_string(html)</span><br></pre></td></tr></table></figure>
+<p>这段代码中的 <code>html</code> 就是一个简单的模板文件，当开发者想要这个模板对应的样式<br>时，可以直接用 <code>render_template_string</code> 方法来调用这个模板，从而直接把这个样<br>式渲染出来。<br>而模板注入，就是指 <strong>将一串指令代替变量传入模板中让它执行</strong> ，以这段代码为<br>例，我们在传入 <code>code</code> 值时，可以用 <code>&#123;&#123;&#125;&#125;</code> 符号来包裹一系列代码，以此替代本应是<br>参数的 <code>id</code> ：<br>http:&#x2F;&#x2F;….&#x2F;?id&#x3D;</p>
+<h1 id="寻找语句"><a href="#寻找语句" class="headerlink" title="寻找语句"></a>寻找语句</h1><ul>
+<li><strong>class</strong> ： 返回对象所属的类<br><strong>mro</strong> ： 返回一个类所继承的基类元组，方法在解析时按照元组的<br>顺序解析。<br><strong>base</strong> ： 返回该类所继承的基类<br>__base__和__mro__都是用来寻找基类的<br><strong>subclasses</strong> ： 每个新类都保留了子类的引用，这个方法返回一个<br>类中仍然可用的的引用的列表<br><strong>init</strong> ： 类的初始化方法<br><strong>globals</strong> ： 对包含函数全局变量的字典的引用<br>提示SSTI中空格不能用，用’’代替</li>
+</ul>
+<h1 id="例题（攻防世界Web-python-template-injection）"><a href="#例题（攻防世界Web-python-template-injection）" class="headerlink" title="例题（攻防世界Web_python_template_injection）"></a>例题（攻防世界Web_python_template_injection）</h1><p>首先，先测试一下是不是确实能注入，构造一个简单的测试 url:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://111.198.29.45:46675/49</span><br></pre></td></tr></table></figure>
+<p>服务器回传：<br><code>URL http://111.198.29.45:46675/49 not found</code></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/08/20/%E2%80%9DSSTI%E2%80%9C/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -943,94 +1028,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/22/Less-23%EF%BC%88%E6%B3%A8%E9%87%8A%E7%AC%A6%E8%A2%AB%E8%BF%87%E6%BB%A4%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E6%B3%A8%E5%85%A5%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Justin">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="临摹">
-      <meta itemprop="description" content="适得浮生">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 临摹">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/22/Less-23%EF%BC%88%E6%B3%A8%E9%87%8A%E7%AC%A6%E8%A2%AB%E8%BF%87%E6%BB%A4%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E6%B3%A8%E5%85%A5%EF%BC%89/" class="post-title-link" itemprop="url">Less-23（注释符被过滤的情况下注入）</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-03-22 21:25:28 / 修改时间：22:01:53" itemprop="dateCreated datePublished" datetime="2023-03-22T21:25:28+08:00">2023-03-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Sql/" itemprop="url" rel="index"><span itemprop="name">Sql</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>可以发现是一个非常普通的 GET请求 注入，我们输入单引号测试一下注入点,页面回显了错误，那么注入点可能就是单引号，然后我们去测试一下列数。<br>输入语句：?id&#x3D;1’ order by 4 –+<br><img src="/image/Less-23/1.png" alt="打开方式"><br>可以发现页面报了语法错误，那可能是注入点问题，我们测试一下双引号做注入点<br>输入双引号后页面都不报错了，那注入点肯定不是双引号，但是单引号做注入点输入的 Order By 语句又无效。我这里准备直接用 Union 语句去测试列数，因为只要列数不匹配依旧会报错，也可以判断列数。注入点必定不是双引号，这里依旧拿单引号做测试(仍未排除单引号的可能）</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/03/22/Less-23%EF%BC%88%E6%B3%A8%E9%87%8A%E7%AC%A6%E8%A2%AB%E8%BF%87%E6%BB%A4%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E6%B3%A8%E5%85%A5%EF%BC%89/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>
