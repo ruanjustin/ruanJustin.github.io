@@ -191,7 +191,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-08-20 01:07:22 / 修改时间：01:16:18" itemprop="dateCreated datePublished" datetime="2023-08-20T01:07:22+08:00">2023-08-20</time>
+      <time title="创建时间：2023-08-20 01:07:22 / 修改时间：01:37:38" itemprop="dateCreated datePublished" datetime="2023-08-20T01:07:22+08:00">2023-08-20</time>
     </span>
 
   
@@ -206,13 +206,13 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="模板注入"><a href="#模板注入" class="headerlink" title="模板注入"></a>模板注入</h1><p>服务器端模板注入(Server-Side Template Injection)<br>模板注入：<br>为了写 html 代码的时候方便，很多网站都会使用模板，先写好一个 html 模板文件，<br>比如：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">python</span><br><span class="line">def test():</span><br><span class="line">code = request.args.get(&#x27;id&#x27;)</span><br><span class="line">html = &#x27;&#x27;&#x27;</span><br><span class="line">&lt;h3&gt;%s&lt;/h3&gt;</span><br><span class="line">%(code)</span><br><span class="line">return render_template_string(html)</span><br></pre></td></tr></table></figure>
-<p>这段代码中的 <code>html</code> 就是一个简单的模板文件，当开发者想要这个模板对应的样式<br>时，可以直接用 <code>render_template_string</code> 方法来调用这个模板，从而直接把这个样<br>式渲染出来。<br>而模板注入，就是指 <strong>将一串指令代替变量传入模板中让它执行</strong> ，以这段代码为<br>例，我们在传入 <code>code</code> 值时，可以用 <code>&#123;&#123;&#125;&#125;</code> 符号来包裹一系列代码，以此替代本应是<br>参数的 <code>id</code> ：<br>http:&#x2F;&#x2F;….&#x2F;?id&#x3D;</p>
+<p>这段代码中的 <code>html</code> 就是一个简单的模板文件，当开发者想要这个模板对应的样式<br>时，可以直接用 <code>render_template_string</code> 方法来调用这个模板，从而直接把这个样<br>式渲染出来。<br>而模板注入，就是指 <strong>将一串指令代替变量传入模板中让它执行</strong> ，以这段代码为<br>例，我们在传入 <code>code</code> 值时，可以用 <code>&#123;&#123;&#125;&#125;</code> 符号来包裹一系列代码，以此替代本应是<br>参数的 <code>id</code> ：<br><code>http://..../?id=&#123;&#123;代码&#125;&#125;</code></p>
 <h1 id="寻找语句"><a href="#寻找语句" class="headerlink" title="寻找语句"></a>寻找语句</h1><ul>
 <li><strong>class</strong> ： 返回对象所属的类<br><strong>mro</strong> ： 返回一个类所继承的基类元组，方法在解析时按照元组的<br>顺序解析。<br><strong>base</strong> ： 返回该类所继承的基类<br>__base__和__mro__都是用来寻找基类的<br><strong>subclasses</strong> ： 每个新类都保留了子类的引用，这个方法返回一个<br>类中仍然可用的的引用的列表<br><strong>init</strong> ： 类的初始化方法<br><strong>globals</strong> ： 对包含函数全局变量的字典的引用<br>提示SSTI中空格不能用，用’’代替</li>
 </ul>
 <h1 id="例题（攻防世界Web-python-template-injection）"><a href="#例题（攻防世界Web-python-template-injection）" class="headerlink" title="例题（攻防世界Web_python_template_injection）"></a>例题（攻防世界Web_python_template_injection）</h1><p>首先，先测试一下是不是确实能注入，构造一个简单的测试 url:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://111.198.29.45:46675/49</span><br></pre></td></tr></table></figure>
-<p>服务器回传：<br><code>URL http://111.198.29.45:46675/49 not found</code></p>
+<p>服务器回传：<br><code>URL http://111.198.29.45:46675/49 not found</code><br><code>/49</code> 的存在说明 <code>7*7</code> 这条指令被忠实地执行了<br>接下来，开始想办法编代码拿到服务器的控制台权限：</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/08/20/%E2%80%9DSSTI%E2%80%9C/#more" rel="contents">
