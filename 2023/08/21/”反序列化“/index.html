@@ -20,19 +20,19 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="php序列化serialize() 返回一个字符串，包含着可以储存于 php 的任何值的字节流表示。unserialize() 可以用此字符串来重建原始的变量值。用序列化来保存对象可以保存对象中的所有变量。对象中的函数不会被保存，只有类的名称。要能够 unserialize() 一个对象，需要定义该对象的类。也就是，如果序列化了 page1.php 中类 A 的对象 $a，将得到一个指向类 A 的">
+    <meta name="description" content="php序列化serialize()返回一个字符串,包含着可以储存于php的任何值的字节流表示.unserialize()可以用此字符串来重建原始的变量值。用序列化来保存对象可以保存对象中的所有变量.对象中的函数不会被保存，只有类的名称。要能够unserialize()一个对象，需要定义该对象的类。也就是，如果序列化了page1.php中类A的对象$a,将得到一个指向类A的字符串并包含有所有$a中变">
 <meta property="og:type" content="article">
 <meta property="og:title" content="”反序列化“">
 <meta property="og:url" content="http://example.com/2023/08/21/%E2%80%9D%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E2%80%9C/index.html">
 <meta property="og:site_name" content="临摹">
-<meta property="og:description" content="php序列化serialize() 返回一个字符串，包含着可以储存于 php 的任何值的字节流表示。unserialize() 可以用此字符串来重建原始的变量值。用序列化来保存对象可以保存对象中的所有变量。对象中的函数不会被保存，只有类的名称。要能够 unserialize() 一个对象，需要定义该对象的类。也就是，如果序列化了 page1.php 中类 A 的对象 $a，将得到一个指向类 A 的">
+<meta property="og:description" content="php序列化serialize()返回一个字符串,包含着可以储存于php的任何值的字节流表示.unserialize()可以用此字符串来重建原始的变量值。用序列化来保存对象可以保存对象中的所有变量.对象中的函数不会被保存，只有类的名称。要能够unserialize()一个对象，需要定义该对象的类。也就是，如果序列化了page1.php中类A的对象$a,将得到一个指向类A的字符串并包含有所有$a中变">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/image/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/1.png">
 <meta property="og:image" content="http://example.com/image/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/2.png">
 <meta property="og:image" content="http://example.com/image/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/3.png">
 <meta property="og:image" content="http://example.com/image/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/4.png">
 <meta property="article:published_time" content="2023-08-20T17:52:01.000Z">
-<meta property="article:modified_time" content="2023-08-21T09:10:02.152Z">
+<meta property="article:modified_time" content="2023-08-21T09:14:47.626Z">
 <meta property="article:author" content="Justin">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/image/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/1.png">
@@ -200,7 +200,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-08-21 01:52:01 / 修改时间：17:10:02" itemprop="dateCreated datePublished" datetime="2023-08-21T01:52:01+08:00">2023-08-21</time>
+      <time title="创建时间：2023-08-21 01:52:01 / 修改时间：17:14:47" itemprop="dateCreated datePublished" datetime="2023-08-21T01:52:01+08:00">2023-08-21</time>
     </span>
 
   
@@ -213,7 +213,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="php序列化"><a href="#php序列化" class="headerlink" title="php序列化"></a>php序列化</h1><p><code>serialize() </code>返回一个字符串，包含着可以储存于 php 的任何值的字节流表示。<code>unserialize() </code>可以用此字符串来重建原始的变量值。用序列化来保存对象可以保存对象中的所有变量。<code>对象中的函数不会被保存</code>，只有类的名称。要能够 unserialize() 一个对象，需要定义该对象的类。也就是，<code>如果序列化了 page1.php 中类 A 的对象 $a，将得到一个指向类 A 的字符串并包含有所有 $a 中变量的值。如果要在 page2.php 中将其解序列化，重建类 A 的对象 $a，则 page2.php 中必须要出现类 A 的定义</code>。<br>类属性可以定义为public， private 或者 protected。在没有任何访问控制关键字的情况下，属性声明为 public。</p>
+        <h1 id="php序列化"><a href="#php序列化" class="headerlink" title="php序列化"></a>php序列化</h1><p><code>serialize()</code>返回一个字符串,包含着可以储存于php的任何值的字节流表示.<code>unserialize()</code>可以用此字符串来重建原始的变量值。用序列化来保存对象可以保存对象中的所有变量.<code>对象中的函数不会被保存</code>，只有类的名称。要能够unserialize()一个对象，需要定义该对象的类。也就是，<code>如果序列化了</code>page1.php<code>中类A的对象</code>$a<code>,将得到一个指向类A的字符串并包含有所有</code>$a<code>中变量的值。如果要在</code>page2.php<code>中将其解序列化，重建类A的对象</code>$a<code>，则 </code>page2.php<code>中必须要出现类A的定义</code>。<br>类属性可以定义为public,private或者protected.在没有任何访问控制关键字的情况下，属性声明为public。</p>
 <span id="more"></span>
 <p>1）<code>public</code>：公有的，可以在任何地方被访问。属性的变量序列化化后直接就是变量名<br>2）<code>private</code>：私有的，只能被定义的类所访问。属性的变量序列化后会在前面加%00类名%00<br>3）<code>protect</code>：受保护的，可以被其自身以及子类和父类访问。属性的变量序列化后会在前面加%00*%00<br>注意：%00占一个字节在序列化字符串中会计数进变量名长度，但在页面中不会显示出来，而且复制的时候不会复制进来；在构造序列化字符串时，最好在脚本里用str_replace直接对serialize函数的返回结果进行构造完之后添加上相应的符号。</p>
 <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h2 id="exec"><a href="#exec" class="headerlink" title="exec()"></a>exec()</h2><p>语法为 exec(string $command[,array &amp;$output[,int &amp;$return_var ]]);<br><code>$command</code>  为要<code>执行的命令</code>，为字符类型<br>$output  为执行命令后输出的结果，为数组类型<br>$return_var  为命令执行后的返回状态，为int类型<br>理论上<code>只需要一个参数$command</code>即可</p>
