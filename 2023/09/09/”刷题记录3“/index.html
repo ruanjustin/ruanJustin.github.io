@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="alter&amp;#、&amp;#x、\u都可以用来表示一串unicode编码 simple_ssti_1config是flask模板中的一个全局对象。包含了所有应用程序的配置值，且配置值应大写： 1?flag&#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="”刷题记录3“">
+<meta property="og:url" content="http://example.com/2023/09/09/%E2%80%9D%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%953%E2%80%9C/index.html">
+<meta property="og:site_name" content="临摹">
+<meta property="og:description" content="alter&amp;#、&amp;#x、\u都可以用来表示一串unicode编码 simple_ssti_1config是flask模板中的一个全局对象。包含了所有应用程序的配置值，且配置值应大写： 1?flag&#x3D;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/image/bugku/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%953/1.png">
+<meta property="og:image" content="http://example.com/image/bugku/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%953/2.png">
+<meta property="og:image" content="http://example.com/image/bugku/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%953/3.png">
+<meta property="og:image" content="http://example.com/image/bugku/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%953/4.png">
+<meta property="article:published_time" content="2023-09-09T13:50:04.000Z">
+<meta property="article:modified_time" content="2023-09-09T14:21:33.282Z">
+<meta property="article:author" content="Justin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image/bugku/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%953/1.png">
+
+
+<link rel="canonical" href="http://example.com/2023/09/09/%E2%80%9D%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%953%E2%80%9C/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/09/09/%E2%80%9D%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%953%E2%80%9C/","path":"2023/09/09/”刷题记录3“/","title":"”刷题记录3“"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>”刷题记录3“ | 临摹</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">临摹</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#alter"><span class="nav-number">1.</span> <span class="nav-text">alter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#simple-ssti-1"><span class="nav-number">2.</span> <span class="nav-text">simple_ssti_1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#simple-ssti-2"><span class="nav-number">3.</span> <span class="nav-text">simple_ssti_2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%95%99%E8%A8%80%E6%9D%BF"><span class="nav-number">4.</span> <span class="nav-text">留言板</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%A0%E5%BF%85%E9%A1%BB%E8%AE%A9%E4%BB%96%E5%81%9C%E4%B8%8B"><span class="nav-number">5.</span> <span class="nav-text">你必须让他停下</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%86"><span class="nav-number">6.</span> <span class="nav-text">社工-初步收集</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%AE%E7%AE%B1%E7%99%BB%E5%BD%95"><span class="nav-number">6.1.</span> <span class="nav-text">邮箱登录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#game1"><span class="nav-number">7.</span> <span class="nav-text">game1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%AB%99%E8%A2%AB%E9%BB%91"><span class="nav-number">8.</span> <span class="nav-text">网站被黑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%98"><span class="nav-number">9.</span> <span class="nav-text">本地管理员</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bp"><span class="nav-number">10.</span> <span class="nav-text">bp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#eval"><span class="nav-number">11.</span> <span class="nav-text">eval</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%98%E9%87%8F1"><span class="nav-number">12.</span> <span class="nav-text">变量1</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Justin</p>
+  <div class="site-description" itemprop="description">适得浮生</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/09/%E2%80%9D%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%953%E2%80%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Justin">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="临摹">
+      <meta itemprop="description" content="适得浮生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="”刷题记录3“ | 临摹">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ”刷题记录3“
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-09-09 21:50:04 / 修改时间：22:21:33" itemprop="dateCreated datePublished" datetime="2023-09-09T21:50:04+08:00">2023-09-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/bugku/" itemprop="url" rel="index"><span itemprop="name">bugku</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="alter"><a href="#alter" class="headerlink" title="alter"></a>alter</h1><p><code>&amp;#、&amp;#x、\u</code>都可以用来表示一串<code>unicode编码</code></p>
+<h1 id="simple-ssti-1"><a href="#simple-ssti-1" class="headerlink" title="simple_ssti_1"></a>simple_ssti_1</h1><p><code>config</code>是flask模板中的一个全局对象。<code>包含</code>了所有应用程序的<code>配置值</code>，且配置值应<code>大写</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?flag=</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h1 id="simple-ssti-2"><a href="#simple-ssti-2" class="headerlink" title="simple_ssti_2"></a>simple_ssti_2</h1><p>构造payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag=%7B%7B%20config.__class__.__init__.__globals__[%27os%27].popen(%27cat%20flag%27).read()%20%7D%7D</span><br></pre></td></tr></table></figure>
+<h1 id="留言板"><a href="#留言板" class="headerlink" title="留言板"></a>留言板</h1><p><code>Document.cookie</code>:<br>获取并设置与当前文档相关联的 cookie。<br><code>alert</code>:<br>显示警示框<br>使用<code>dirsearch</code>工具进行目录扫描</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python dirsearch.py -u http://114.67.175.224:18392/</span><br></pre></td></tr></table></figure>
+<p>得到<br>&#x2F;admin.php<br>&#x2F;db.sql<br>访问admin.php得到管理员登陆界面<br>访问db.sql得到管理员账号密码<br><code>留言板输入</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(1)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>再访问管理员界面<br>发现可以执行<br>构造一个获取cookie的js代码<br>看flag在不在里面:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(document.cookie)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>访问管理员界面<br>得到flag</p>
+<h1 id="你必须让他停下"><a href="#你必须让他停下" class="headerlink" title="你必须让他停下"></a>你必须让他停下</h1><p>发现页面一直刷新，来不及复制flag：<br>1.手动<code>禁用js</code><br>2.<code>bp抓包</code>后查看抓包记录</p>
+<h1 id="社工-初步收集"><a href="#社工-初步收集" class="headerlink" title="社工-初步收集"></a>社工-初步收集</h1><p><code>wireshark</code>：抓包软件，<code>捕捉数据帧</code>（<code>抓包exe</code>时使用）</p>
+<h2 id="邮箱登录"><a href="#邮箱登录" class="headerlink" title="邮箱登录"></a>邮箱登录</h2><p>邮箱登录的方式主流是两种，一种是<code>密码登录</code>，一种是<code>授权码登录</code>，官网提供的邮箱登录一般是<code>账号+密码登录</code>，第三方邮件系统登录的一般都是<code>客户端+授权码登录</code>。<br>看到有一个“下载辅助”的地方，点击后可以下载到东西<br>发现是exe，打开<br>发现要输qq号和密码（随便输点什么，我这里输的123——123，千万别输个人信息！！）<br>打开<code>wireshark</code>抓包，发送一次，发现抓到的包里有<code>user，password</code>的信息<br><code>dirsearch</code>扫描，得到登陆界面<br>使用user，password的信息发现无法登陆，选择163邮箱登录，发现仍然无效<br>于是推测是<code>授权码登录</code><br>登陆qq邮箱，选择其他邮箱，绑定163邮箱即可查看其中邮件<br>得到账号密码，返回登陆界面登陆，从信息中就可发现flag</p>
+<h1 id="game1"><a href="#game1" class="headerlink" title="game1"></a>game1</h1><p>简单玩一下，游戏结束后点击<code>F12</code>查看网络<br>发现可以目标<br><img src="/image/bugku/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%953/1.png" alt="打开方式"><br>发现sign是加密的<br>通过经验或查看源代码得，sign是<code>base64编码</code>，且sign开头的zM是自己加进去的，于是构造payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">score.php?score=99999&amp;ip=60.223.123.226&amp;sign=zMOTk5OTk==</span><br></pre></td></tr></table></figure>
+<p>即可</p>
+<h1 id="网站被黑"><a href="#网站被黑" class="headerlink" title="网站被黑"></a>网站被黑</h1><p>先用<code>扫描工具扫出shell.php</code>的后台<br>再用bp爆破密码即可得到flag</p>
+<h1 id="本地管理员"><a href="#本地管理员" class="headerlink" title="本地管理员"></a>本地管理员</h1><p>添加X-Forwarded-For即可</p>
+<h1 id="bp"><a href="#bp" class="headerlink" title="bp"></a>bp</h1><p>进行密码爆破，发现无法得到密码<br>通过观察响应包里面的内容，我们发现错误包里面都会返回一个JavaScript代码告知我们的密码有错误<br><img src="/image/bugku/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%953/2.png" alt="打开方式"><br>所以我们通过Burpsuite的 （Grep – Match 在响应中找出存在指定的内容的一项。）过滤掉存在JavaScript代码中的{code: ‘hacker 1000’}的数据包。<br><img src="/image/bugku/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%953/3.png" alt="打开方式"><br>发现密码为zxc123<br><img src="/image/bugku/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%953/4.png" alt="打开方式"></p>
+<h1 id="eval"><a href="#eval" class="headerlink" title="eval"></a>eval</h1><p>先通过<code>eval函数</code>，查看<code>全局变量</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url?hello=$GLOBALS</span><br></pre></td></tr></table></figure>
+<p>发现有flag，还被嘲讽了<br>说明flag不是变量，应该就在flag.php里头被注释了<br>于是利用request构造payload</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?hello=);highlight_file(&#x27;flag.php&#x27;);var_dump(</span><br><span class="line">或?hello=file(&#x27;flag.php&#x27;)</span><br></pre></td></tr></table></figure>
+<p>即可得到flag</p>
+<h1 id="变量1"><a href="#变量1" class="headerlink" title="变量1"></a>变量1</h1><p><code>$$符号</code>表示了<code>可变变量</code>。<br>比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$change_name = &quot;trans&quot;</span><br><span class="line">$trans = &quot;you&quot;</span><br><span class="line">echo $change_name</span><br><span class="line">echo &quot;&lt;br&gt;&quot;</span><br><span class="line">echo $$change_name</span><br></pre></td></tr></table></figure>
+<p>上一题（eval）中的两个$也是这个意思<br>preg_match(“&#x2F;^\w+$&#x2F;“,$args)<br><code>\w</code>表示任意一个<code>单词字符</code>，即[a-zA-Z0-9_],<code>+将前面的字符匹配一次或多次</code>，<code>$/</code>表示结尾，<code>/^</code>表示开头<br>所以本则正则表达即要求内容为[a-zA-Z0-9_]<br>所以构造payload：?args&#x3D;GLOBALS即可</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/09/08/%E2%80%9C%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%952%E2%80%9D/" rel="prev" title="“刷题记录2”">
+                  <i class="fa fa-chevron-left"></i> “刷题记录2”
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Justin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
